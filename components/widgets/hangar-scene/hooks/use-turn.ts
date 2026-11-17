@@ -7,10 +7,10 @@
 import { useFrame } from "@react-three/fiber";
 import { type RefObject, useRef } from "react";
 
+import { TURN_SPEED } from "../constants";
 import type { TurnState } from "../types";
 
 const IDLE_AFTER_MS = 2500;
-const IDLE_SPEED = 0.3; // rad/s
 const FRICTION = 3; // inertia decay per second
 
 interface TurnOptions {
@@ -46,7 +46,8 @@ export function useTurn({
       const rest = Math.round(turn.angle / (Math.PI * 2)) * Math.PI * 2;
       turn.angle = range === undefined ? rest : 0;
       turn.velocity = 0;
-      turn.lastInput = performance.now();
+      // No idle delay: it starts turning as soon as it's on screen.
+      turn.lastInput = 0;
       shown.current = turn.angle;
       return;
     }
@@ -57,12 +58,12 @@ export function useTurn({
 
       const resting = performance.now() - turn.lastInput > IDLE_AFTER_MS;
       if (resting && !reducedMotion && Math.abs(turn.velocity) < 0.05) {
-        if (range === undefined) turn.angle += IDLE_SPEED * delta;
+        if (range === undefined) turn.angle += TURN_SPEED * delta;
         else {
           // Ping-pong inside the footage's range.
           if (Math.abs(turn.angle) > range * 0.7)
             idleDirection.current = -Math.sign(turn.angle);
-          turn.angle += idleDirection.current * IDLE_SPEED * 0.6 * delta;
+          turn.angle += idleDirection.current * TURN_SPEED * delta;
         }
       }
     }

@@ -11,7 +11,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "The home's three.js scene (r3f + drei): a depth starfield and the drop's garments floating in zero gravity, with the camera driven by `progressRef` (0 → 1 across the page sections). Drag horizontally to turn a garment. Tees are 2.5D shells inflated from the brand's front and back renders (360°); the hoodie scrubs real footage from its MONOCHROME post (about ±60°, mirrored). Without WebGL it renders the garment poster.",
+          "The home's three.js scene (r3f + drei): a depth starfield and the drop's garments floating in zero gravity, with the camera driven by `progressRef` (0 → 1 across the page sections). Drag horizontally to turn a garment 360°. Garments are the brand's glTF models (optimized with `pnpm models:optimize`). The hoodie makes one full turn with its lights off, then a scan line switches them on; changing a tee's colour uses the same scan. Without WebGL it shows a short notice.",
       },
     },
   },
@@ -26,6 +26,7 @@ const meta = {
     garments: ["hoodie-monochrome", "tee-monochrome-white"],
     progressRef: { current: 0 },
     turnsRef: { current: [createTurnState(), createTurnState()] },
+    revealed: true,
     reducedMotion: false,
     label: "Hoodie Monochrome y Remera Monochrome flotando en el espacio.",
   },

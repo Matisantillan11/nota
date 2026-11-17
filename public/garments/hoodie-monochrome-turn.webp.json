@@ -1,4 +1,0 @@
-{
-  "prompt": "SOURCED: 16 frames (0-1.85s) of the user-provided screen recording of NOTA.'s Instagram post MONOCHROME, crop x230 y900 740x880; frame 15 matted with GrabCut, earlier frames seeded by their neighbour; edge eroded 1px and feathered (sigma 1.2); all frames cropped to the union bounding box and packed 4x4 at 652x711 per cell. Mirrored at runtime for the other side. No blue light. Not generated.",
-  "createdAt": "2026-11-17T18:33:32.854Z"
-}

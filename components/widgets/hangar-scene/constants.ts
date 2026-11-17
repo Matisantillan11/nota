@@ -1,62 +1,21 @@
-import type { GarmentFace, GarmentModel, GarmentModelId } from "./types";
+import type { GarmentModel, GarmentModelId } from "./types";
 
-const teeFace = (
-  color: "white" | "black",
-  side: "front" | "back",
-  width: number,
-  height: number,
-): GarmentFace => ({
-  src: `/garments/tee-${color}-${side}.webp`,
-  depth: `/garments/tee-${color}-${side}-depth.webp`,
-  normal: `/garments/tee-${color}-${side}-normal.webp`,
-  width,
-  height,
-});
-
-// Every raster carries its provenance in a sidecar next to it. Swap for real
-// .glb exports when the brand has them.
+// Optimized from the brand's models in assets-src/models (pnpm models:optimize).
 export const GARMENT_MODELS: Record<GarmentModelId, GarmentModel> = {
   "hoodie-monochrome": {
-    kind: "turntable",
-    atlas: {
-      src: "/garments/hoodie-monochrome-turn.webp",
-      cols: 4,
-      rows: 4,
-      cellWidth: 652,
-      cellHeight: 711,
-    },
-    range: Math.PI / 3,
-    poster: {
-      src: "/garments/hoodie-monochrome.webp",
-      width: 725,
-      height: 790,
-    },
+    src: "/models/hoodie-off.glb",
+    lit: "/models/hoodie-on.glb",
+    // Strong on purpose: masked to the lit lines, it renders them pure white.
+    litGlow: 4,
+    halo: 0.55,
   },
-  "tee-monochrome-white": {
-    kind: "shell",
-    front: teeFace("white", "front", 1024, 1009),
-    back: teeFace("white", "back", 1024, 1009),
-    glow: 0.35,
-    poster: {
-      src: "/garments/tee-white-front.webp",
-      width: 1024,
-      height: 1009,
-    },
-  },
-  "tee-monochrome-black": {
-    kind: "shell",
-    front: teeFace("black", "front", 630, 677),
-    back: teeFace("black", "back", 630, 677),
-    glow: 0.95,
-    poster: { src: "/garments/tee-black-front.webp", width: 630, height: 677 },
-  },
+  // A white garment needs less light behind it to keep its own edge.
+  "tee-monochrome-white": { src: "/models/tee-white.glb", halo: 0.35 },
+  "tee-monochrome-black": { src: "/models/tee-black.glb", halo: 0.77 },
 };
 
 // World-space height of every garment.
 export const GARMENT_HEIGHT = 3;
-
-// How far the inflated shells bulge from their silhouette (world units).
-export const SHELL_DEPTH = 0.32;
 
 // Mirrors app/globals.css `background` — three can't read CSS vars.
 export const SCENE_BACKGROUND = "#06060a";
@@ -74,4 +33,19 @@ export const DRAG_SENSITIVITY = 0.012;
 // within `hold`, gone by `gone` — so two pieces are never on screen together.
 export const STOP_FADE = { hold: 0.1, gone: 0.42 } as const;
 
-export const MAX_DPR = 2;
+// Pixel ratio ceiling; drops to MIN_DPR when the device can't hold the frame rate.
+export const MAX_DPR = 1.5;
+export const MIN_DPR = 1;
+
+// Soft light behind each garment: neutral, a touch cool, never the signal
+// blue (no colour on garments). Size relative to the garment's height.
+export const HALO_COLOR = "#e9eef5";
+// Room for the uneven outline to drift without touching the quad's edge.
+export const HALO_SIZE = 2;
+
+// Scan wipe between two states of a garment (colour swap, lights on).
+export const SWAP_SECONDS = 1.1;
+// One pace for every garment's turn, first turn and after (rad/s).
+export const TURN_SPEED = 1.5;
+// Turning this much (one full revolution) switches a lit state on.
+export const LIGHTS_ON_AFTER = Math.PI * 2;

@@ -11,5 +11,6 @@ export interface GarmentProps {
   totalStops: number;
   progressRef: RefObject<number>;
   turnsRef: RefObject<TurnState[]>;
+  revealed: boolean;
   reducedMotion: boolean;
 }

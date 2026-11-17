@@ -284,17 +284,19 @@ Every product is shown as an interactive three.js object. The canvas is part of 
 - **One space:** the canvas is transparent or clears to `{colors.background}` — never a visible canvas edge or a different-colored stage.
 - **Portal staging:** garments float (no mannequin, no floor contact) inside a soft-lit void — a subtle receding frame/tunnel with vignette, as in the MONOCHROME renders. Portal grays come from the scene-only table above.
 - **Light:** a neutral key from the front and a neutral (white) back light that rims the garment so black fabric separates from the void. **No `signal`-blue light on garments** (brand decision): `signal` stays for focus and UI light. Reflective details should catch the light as the object turns.
+- **Halo:** backlit mist behind each garment, like the decontamination fog of an airlock: a soft radial light in a neutral, slightly cool white (`#e9eef5`, never signal blue) broken up by slowly drifting wisps. Strongest behind black fabric, softest behind white so its edge holds. It doesn't turn with the garment and fades with it; under reduced motion the mist holds still.
+- **Decontamination burst:** as the loading gate's doors finish opening, a one-off mist pours out of the seam, spreads across the screen, rises and clears in ~3 s (in the canvas, so page text stays readable). Off under reduced motion.
 - **Interaction:** horizontal drag/touch turns the garment with damping (no panning, no zoom). When nobody touches it, it sways gently around its rest view and resumes after a pause. A short caption ("Arrastrá la prenda para girarla.") sits with the product copy.
 - **Atmosphere:** two layers of sparse stars at different depths, plus two quiet events, both neutral white and off under reduced motion:
   - **Movement sparkles:** small ✦ that twinkle in and out while the camera travels between sections, in proportion to the distance moved (none at rest).
   - **Shooting stars:** every 6–12 s, at random, 1–3 thin streaks cross the far background in one shared direction (never more than 3).
   - Nothing may compete with the garment.
-- **Assets (MVP):** no 3D source files exist yet, so garments are built from the brand's renders, each raster with a provenance sidecar in `public/garments/`:
-  - **Shell** (tees): front and back renders matted and "inflated" from their silhouettes (depth + normal maps) into a 2.5D object that turns 360°. Front and back are exact; sides are an approximation.
-  - **Turntable** (hoodie): real frames of the MONOCHROME post's turn, scrubbed by the drag angle (±60°, mirrored for the other side). Only the published angles exist.
-  - Replace both with glTF binary (`.glb`) exports when the brand has them.
-- **Loading:** a still poster of the garment with the same framing until the scene is ready. Never a spinner on an empty void.
-- **Performance budget:** cap device pixel ratio at 2, render only while the canvas is on screen, pause when the tab is hidden, dispose geometries/materials/textures on unmount.
+- **Assets:** the brand's glTF models, optimized with `pnpm models:optimize` (meshopt geometry, WebP textures at 1024px, ~12% of the original vertices): sources in `assets-src/models/` (not served), output in `public/models/` (~0.75–1.2 MB each).
+  - Every garment turns a full 360° at one constant pace, and drag turns it freely with inertia.
+  - **Hoodie:** its first full turn shows the lights-off model; then a scan line sweeps up and swaps in the lights-on model, whose reflective lines then strike on like a tube light (a short flicker, then steady): only the texture's pure-white texels (the lines, brighter than the off-white fabric) emit, so they read as light against the shaded fabric. No bloom post-processing (it blanked the canvas intermittently).
+  - **Tee:** changing colour (Blanca / Negra) uses the same upward scan swap.
+- **Loading:** a full-screen hatch, closed, while the garments load. A laser (signal-blue light, white-hot head, sparks) welds its vertical seam top to bottom, following real asset progress with a minimum duration; the status reads "Reparando la compuerta." with a percentage. When the weld completes it flares once, the doors part and the drop is revealed; the finished weld rides away on the left door. Input is held until the doors open. Without WebGL, or after 15 s, it opens anyway; under reduced motion it simply fades. Never a spinner on an empty void.
+- **Performance budget:** cap device pixel ratio at 1.5 (an adaptive monitor drops it to 1 when the frame rate falls), render only while the canvas is on screen, pause when the tab is hidden, dispose geometries/materials/textures on unmount.
 - **Fallback:** without WebGL, show the poster image — purchasing must never depend on 3D working.
 - **Accessibility:** the canvas has a text alternative (product name + short description); every purchase action (size, color, add to cart) lives in regular DOM controls, never only inside the scene.
 

@@ -30,6 +30,8 @@ vi.mock("~/components/widgets/hangar-scene", () => ({
     lastInput: 0,
   }),
   useTurnDrag: () => ({}),
+  useSceneProgress: () => ({ progress: 1, done: true }),
+  hasWebGL: () => true,
 }));
 
 function renderHome() {

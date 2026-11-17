@@ -3,40 +3,19 @@ import type { RefObject } from "react";
 export type GarmentModelId =
   "hoodie-monochrome" | "tee-monochrome-white" | "tee-monochrome-black";
 
-export interface GarmentFace {
+export interface GarmentModel {
+  /** Optimized glTF binary (see `pnpm models:optimize`). */
   src: string;
-  depth: string;
-  normal: string;
-  width: number;
-  height: number;
+  /**
+   * A second state of the same garment that the first turn switches on
+   * (the hoodie's lit reflective lines).
+   */
+  lit?: string;
+  /** Self-light the lit state ramps up to, so "lights on" reads clearly. */
+  litGlow?: number;
+  /** Strength of the soft light behind the garment (0–1). */
+  halo: number;
 }
-
-/** A 2.5D garment: front and back renders inflated from their silhouettes. */
-export interface ShellModel {
-  kind: "shell";
-  front: GarmentFace;
-  back: GarmentFace;
-  /** Self-light so the render's own studio light survives on dark fabric. */
-  glow: number;
-  poster: { src: string; width: number; height: number };
-}
-
-/** Real footage of the garment turning, scrubbed by the drag angle. */
-export interface TurntableModel {
-  kind: "turntable";
-  atlas: {
-    src: string;
-    cols: number;
-    rows: number;
-    cellWidth: number;
-    cellHeight: number;
-  };
-  /** Largest angle (radians) either side of the rest frame the footage covers. */
-  range: number;
-  poster: { src: string; width: number; height: number };
-}
-
-export type GarmentModel = ShellModel | TurntableModel;
 
 /**
  * Turn state for one garment, shared between the page (which writes drag
@@ -59,6 +38,8 @@ export interface HangarSceneProps {
   progressRef: RefObject<number>;
   /** One turn state per garment, written by `useTurnDrag` on the page. */
   turnsRef: RefObject<TurnState[]>;
+  /** False while the loading gate still covers the scene. */
+  revealed: boolean;
   reducedMotion: boolean;
   /** Text alternative for the canvas. */
   label: string;

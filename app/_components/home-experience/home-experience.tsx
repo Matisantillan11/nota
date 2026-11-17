@@ -5,14 +5,14 @@ import { useRef, useState } from "react";
 
 import { CartProvider } from "~/app/_contexts/cart";
 import {
-  GarmentPoster,
   type TurnState,
   createTurnState,
 } from "~/components/widgets/hangar-scene";
 import { useReducedMotion } from "~/hooks/use-reduced-motion";
 import { Observer, ScrollTrigger, gsap, useGSAP } from "~/utils/motion";
 
-import HatchHero from "../hatch-hero";
+import DropHero from "../drop-hero";
+import LoadingGate from "../loading-gate";
 import NextDrop from "../next-drop";
 import PieceSection from "../piece-section";
 import SiteFooter from "../site-footer";
@@ -20,24 +20,19 @@ import SiteHeader from "../site-header";
 import UsageHint from "../usage-hint";
 import type { HomeExperienceProps } from "./types";
 
-// WebGL is client-only; the poster holds the garment's place while it loads.
+// WebGL is client-only; the loading gate covers the page while it loads.
 const HangarScene = dynamic(() => import("~/components/widgets/hangar-scene"), {
   ssr: false,
-  loading: () => (
-    <div className="grid size-full place-items-center pb-[30svh]">
-      <GarmentPoster
-        model="hoodie-monochrome"
-        label=""
-        className="w-40 opacity-60 md:w-56"
-      />
-    </div>
-  ),
 });
 
 function HomeExperience({ drop, nextDrop }: HomeExperienceProps) {
   const main = useRef<HTMLElement>(null);
   const progress = useRef(0);
   const hint = useRef<HTMLParagraphElement>(null);
+  // Input is held until the loading gate opens.
+  const open = useRef(false);
+  // Tells the scene the visitor can see it (the hoodie's first turn waits).
+  const [revealed, setRevealed] = useState(false);
   const reducedMotion = useReducedMotion();
   // Chosen colourway per piece; it also decides which model the scene shows.
   const [variants, setVariants] = useState<Record<string, string>>(() =>
@@ -91,7 +86,7 @@ function HomeExperience({ drop, nextDrop }: HomeExperienceProps) {
 
       const goTo = (next: number) => {
         const clamped = Math.min(Math.max(next, 0), sections.length);
-        if (moving || clamped === index) return;
+        if (!open.current || moving || clamped === index) return;
         moving = true;
         index = clamped;
         gsap.to(window, {
@@ -162,16 +157,23 @@ function HomeExperience({ drop, nextDrop }: HomeExperienceProps) {
           garments={models}
           progressRef={progress}
           turnsRef={turns}
+          revealed={revealed}
           reducedMotion={reducedMotion}
           label={`${drop.pieces.map((piece) => piece.name).join(" y ")} flotando en el espacio.`}
         />
       </div>
+      <LoadingGate
+        reducedMotion={reducedMotion}
+        onOpen={() => {
+          open.current = true;
+          setRevealed(true);
+        }}
+      />
       <SiteHeader />
       <UsageHint ref={hint} />
       <main ref={main} className="relative z-10">
-        <HatchHero
+        <DropHero
           drop={drop}
-          reducedMotion={reducedMotion}
           variantId={variants[drop.pieces[0].id]}
           onVariantChange={chooseVariant(drop.pieces[0].id)}
           turnsRef={turns}

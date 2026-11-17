@@ -17,7 +17,8 @@
 		"test:storybook": "vitest --project=storybook",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
-		"chromatic": "chromatic --exit-zero-on-changes"
+		"chromatic": "chromatic --exit-zero-on-changes",
+		"models:optimize": "for f in monocrome-dark-tshirt:tee-black monocrome-white-tshirt:tee-white monocrome-hoodie-light-off:hoodie-off monocrome-hoodie-light-on:hoodie-on; do gltf-transform optimize assets-src/models/${f%%:*}.glb public/models/${f##*:}.glb --compress meshopt --texture-compress webp --texture-size 1024 --simplify true --simplify-ratio 0.12 --simplify-error 0.0008; done"
 	},
 	"dependencies": {
 		"@gsap/react": "^2.1.2",
@@ -56,6 +57,7 @@
 	},
 	"devDependencies": {
 		"@chromatic-com/storybook": "^5.3.1",
+		"@gltf-transform/cli": "^4.5.1",
 		"@storybook/addon-a11y": "^10.6.1",
 		"@storybook/addon-docs": "^10.6.1",
 		"@storybook/addon-vitest": "^10.6.1",
