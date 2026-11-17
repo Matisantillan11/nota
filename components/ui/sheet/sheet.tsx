@@ -26,7 +26,7 @@ function Sheet({
         <div className="flex items-start justify-between gap-4">
           <div className="flex min-w-0 items-center gap-2">
             <div className="flex min-w-0 flex-col gap-1">
-              <SheetCore.Title className="text-lg font-semibold text-foreground">
+              <SheetCore.Title className="text-xl font-normal text-foreground">
                 {title}
               </SheetCore.Title>
               <SheetCore.Description
@@ -41,7 +41,7 @@ function Sheet({
           </div>
           <SheetCore.Close
             aria-label="Close"
-            className="shrink-0 rounded-md p-1 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+            className="shrink-0 rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
           >
             <XIcon className="size-4" />
           </SheetCore.Close>

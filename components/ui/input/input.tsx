@@ -24,7 +24,7 @@ function Input({
         type={type}
         data-slot="input"
         className={cn(
-          "min-w-0 flex-1 bg-transparent placeholder:text-foreground outline-none", // layout & text
+          "min-w-0 flex-1 bg-transparent placeholder:text-muted-foreground outline-none", // layout & text
           "[&[type=file]]:text-foreground", // file input: "no file chosen" label reads like a placeholder
           "file:mr-2 file:cursor-pointer file:rounded-sm file:border-0 file:bg-secondary file:px-3 file:py-1 file:text-sm file:font-medium file:text-foreground", // file input: choose-file button
           "disabled:cursor-not-allowed", // disabled state

@@ -14,13 +14,14 @@ function Toaster({ className, toastOptions, ...props }: ToasterProps) {
         ...toastOptions,
         classNames: {
           toast:
-            "group toast rounded-xl border border-border bg-card text-card-foreground shadow-lg",
+            "group toast rounded-xl border border-border bg-card/60 text-card-foreground backdrop-blur-xl",
           title: "text-foreground",
-          description: "text-foreground",
-          actionButton: "bg-primary text-primary-foreground",
-          cancelButton: "bg-secondary text-foreground",
-          error: "border-error/30 text-error",
-          success: "border-success/30 text-success",
+          description: "text-muted-foreground",
+          actionButton:
+            "rounded-full bg-primary text-xs font-medium uppercase tracking-[0.24em] text-primary-foreground",
+          cancelButton:
+            "rounded-full bg-secondary text-xs font-medium uppercase tracking-[0.24em] text-foreground",
+          error: "border-destructive/30 text-destructive",
           ...toastOptions?.classNames,
         },
       }}

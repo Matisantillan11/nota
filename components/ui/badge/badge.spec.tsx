@@ -42,6 +42,6 @@ describe("Badge", () => {
     const link = screen.getByRole("link", { name: "Paid" });
     expect(link).toBe(ref.current);
     expect(link.tagName).toBe("A");
-    expect(link.className).toContain("bg-primary");
+    expect(link.className).toContain("border-border");
   });
 });

@@ -75,7 +75,7 @@ function SelectCoreContent({
         sideOffset={sideOffset}
         position={position}
         className={cn(
-          "z-50 max-h-(--radix-select-content-available-height) overflow-x-hidden overflow-y-auto rounded-xl border border-border bg-card shadow-xl outline-none",
+          "z-50 max-h-(--radix-select-content-available-height) overflow-x-hidden overflow-y-auto rounded-lg border border-border bg-secondary ring-1 ring-foreground/5 outline-none",
           "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
           position === "popper" && "w-(--radix-select-trigger-width)",
           className,
@@ -105,7 +105,7 @@ function SelectCoreLabel({ className, ...props }: SelectCoreLabelProps) {
   return (
     <SelectPrimitive.Label
       className={cn(
-        "px-2 py-1.5 text-xs font-medium text-foreground",
+        "px-2 py-1.5 text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground",
         className,
       )}
       {...props}

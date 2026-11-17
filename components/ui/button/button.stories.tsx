@@ -28,7 +28,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "The primary interactive action. Built on Radix UI's `Slot` (via the `asChild` prop) and styled with `class-variance-authority`, using the color/radius/spacing tokens confirmed in `DESIGN.md` (`button-primary`: `{colors.primary}` fill, `{rounded.md}` corners, `12px 32px` padding). Six variants across four sizes.",
+          "The primary interactive action. Built on Radix UI's `Slot` (via the `asChild` prop) and styled with `class-variance-authority`, using the color/radius/spacing tokens confirmed in `DESIGN.md` (`button-primary`: `{colors.primary}` fill, `{rounded.full}` capsule, eyebrow label, `14px 32px` padding; `outline` is `button-ghost`). Six variants across four sizes.",
       },
     },
   },
@@ -78,7 +78,7 @@ export const AllVariants: Story = {
     <div className="flex flex-col gap-8">
       {VARIANTS.map((variant) => (
         <div key={variant} className="flex flex-col gap-3">
-          <h3 className="text-sm font-semibold text-foreground capitalize">
+          <h3 className="text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground">
             {variant}
           </h3>
           <div className="flex flex-wrap items-center gap-4">

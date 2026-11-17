@@ -1,28 +1,30 @@
 import { cva } from "class-variance-authority";
 
+// DESIGN.md → Badges: hairline capsule with an eyebrow label, outline by
+// default ("new.", "not available."); fills are the exception.
 export const badgeVariants = cva(
   [
     "inline-flex w-fit shrink-0 items-center justify-center gap-1", // layout & alignment
-    "whitespace-nowrap text-xs font-medium", // text
-    "rounded-full border border-transparent px-2.5 py-0.5", // shape
+    "whitespace-nowrap text-xs font-medium uppercase tracking-[0.24em]", // text
+    "rounded-full border border-transparent px-3 py-1", // shape
     "transition-colors", // motion
-    "outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary", // focus state
+    "outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring", // focus state
     "[&>svg]:pointer-events-none [&>svg]:size-3", // icon children
   ],
   {
     variants: {
       variant: {
-        primary: "bg-primary text-primary-foreground [a&]:hover:bg-primary/70",
+        primary: "bg-primary text-primary-foreground [a&]:hover:bg-primary/85",
         destructive:
-          "bg-destructive/90 text-destructive-foreground [a&]:hover:bg-destructive",
+          "bg-destructive text-destructive-foreground [a&]:hover:bg-destructive/85",
         outline:
-          "border-foreground/30 bg-transparent text-foreground [a&]:hover:border-primary [a&]:hover:bg-primary/10 [a&]:hover:text-primary",
+          "border-border bg-transparent text-foreground [a&]:hover:border-foreground/40",
         secondary:
-          "bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/70",
+          "bg-secondary text-secondary-foreground [a&]:hover:bg-accent",
       },
     },
     defaultVariants: {
-      variant: "primary",
+      variant: "outline",
     },
   },
 );

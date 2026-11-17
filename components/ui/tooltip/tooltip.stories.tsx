@@ -12,7 +12,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A popup that reveals information on hover or keyboard focus. Built from `TooltipCore` (`@radix-ui/react-tooltip`, restyled against `DESIGN.md`'s confirmed `tooltip` spec: inverse fill `bg-foreground`/`text-background`, `{rounded.xl}` corners, `shadow-xl`). `Tooltip` wraps a single trigger element — pass the copy via `content` instead of a `Tooltip.Content` child.",
+          "A popup that reveals information on hover or keyboard focus. Built from `TooltipCore` (`@radix-ui/react-tooltip`, restyled against `DESIGN.md`'s confirmed `tooltip` spec: `bg-secondary` fill, `text-foreground` caption, hairline border, `{rounded.lg}` corners, no shadow). `Tooltip` wraps a single trigger element — pass the copy via `content` instead of a `Tooltip.Content` child.",
       },
     },
   },

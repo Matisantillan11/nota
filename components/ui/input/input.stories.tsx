@@ -20,7 +20,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A native `<input>` styled against `DESIGN.md`'s confirmed `Inputs & forms` spec: a `bg-transparent` field inside a `{rounded.md}` bordered container — no separate 'field fill' color. Its `size` heights (`h-9`/`h-10`/`h-12`) track `buttonVariants`' scale, so an `Input` and a `Button` of matching size line up in the same row.",
+          "A native `<input>` styled against `DESIGN.md`'s confirmed `Inputs & forms` spec: a `bg-transparent` field inside a `{rounded.full}` capsule container — no separate 'field fill' color. Its `size` heights (`h-9`/`h-11`/`h-12`) track `buttonVariants`' scale, so an `Input` and a `Button` of matching size line up in the same row.",
       },
     },
   },

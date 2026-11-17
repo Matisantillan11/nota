@@ -75,7 +75,7 @@ function SheetCoreContent({
         forceMount
         data-slot="sheet-overlay"
         className={cn(
-          "fixed inset-0 z-50 bg-black/40 transition-opacity duration-300 ease-out",
+          "fixed inset-0 z-50 bg-background/70 backdrop-blur-sm transition-opacity duration-300 ease-out",
           isVisible ? "opacity-100" : "opacity-0",
         )}
       />
@@ -83,7 +83,7 @@ function SheetCoreContent({
         forceMount
         data-slot="sheet-content"
         className={cn(
-          "fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-md flex-col gap-4 border-l border-border bg-card p-6 shadow-xl outline-none transition-[transform,max-width] duration-300 ease-out",
+          "fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-md flex-col gap-4 border-l border-border bg-card/60 p-6 backdrop-blur-xl outline-none transition-[transform,max-width] duration-300 ease-out",
           isVisible ? "translate-x-0" : "translate-x-full",
           className,
         )}

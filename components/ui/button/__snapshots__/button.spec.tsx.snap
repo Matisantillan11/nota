@@ -3,7 +3,7 @@
 exports[`Button > matches its snapshot 1`] = `
 <div>
   <button
-    class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium rounded-md transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 cursor-auto hover:cursor-pointer bg-primary text-primary-foreground hover:bg-primary/70 h-10 px-8 py-3"
+    class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-xs font-medium uppercase tracking-[0.24em] rounded-full transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:shadow-[0_0_24px_-4px_var(--color-ring)] disabled:pointer-events-none disabled:opacity-40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 cursor-auto hover:cursor-pointer bg-primary text-primary-foreground hover:bg-primary/85 h-11 px-8"
     data-slot="button"
   >
     Save changes

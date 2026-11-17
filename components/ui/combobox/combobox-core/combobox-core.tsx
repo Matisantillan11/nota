@@ -50,7 +50,7 @@ function ComboboxCoreContent({
         align={align}
         sideOffset={sideOffset}
         className={cn(
-          "z-50 w-(--radix-popover-trigger-width) overflow-hidden rounded-xl border border-border bg-card shadow-xl outline-none",
+          "z-50 w-(--radix-popover-trigger-width) overflow-hidden rounded-lg border border-border bg-secondary ring-1 ring-foreground/5 outline-none",
           "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
           className,
         )}
@@ -76,7 +76,7 @@ function ComboboxCoreInput({ className, ...props }: ComboboxCoreInputProps) {
   return (
     <CommandPrimitive.Input
       className={cn(
-        "flex h-11 w-full border-b border-border bg-transparent px-3 py-3 text-sm text-foreground outline-none placeholder:text-foreground disabled:cursor-not-allowed disabled:opacity-50",
+        "flex h-11 w-full border-b border-border bg-transparent px-3 py-3 text-sm text-foreground outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
       {...props}
@@ -118,7 +118,7 @@ function ComboboxCoreLabel({ className, ...props }: ComboboxCoreLabelProps) {
   return (
     <div
       className={cn(
-        "px-2 py-1.5 text-xs font-medium text-foreground",
+        "px-2 py-1.5 text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground",
         className,
       )}
       {...props}

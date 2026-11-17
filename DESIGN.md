@@ -133,7 +133,7 @@ Source: the brand's Instagram (`@nota__studio_`, 6 posts + highlights, reviewed 
 - **Products are 3D, always**, presented in a portal-like void.
 - **Motion is slow and weightless** (GSAP), with glitch as the one sharp exception.
 
-> **Status:** these are the target tokens. `app/globals.css`, `app/layout.tsx` (fonts) and the theme provider are applied. Still pending: removing the leftover `next-themes` theme toggle and restyling `components/ui` to these tokens (radii, weights, no shadows).
+> **Status:** tokens (`app/globals.css`), Jost and dark-only mode are applied, and `components/ui` is restyled to this spec. Still pending: logo vector, motion/3D widgets (`gsap` wrapper, `three` viewer).
 
 ## Colors
 
@@ -175,7 +175,7 @@ All values live in `app/globals.css`: primitives and the semantic tokens that al
 ## Dark mode
 
 - **Dark is the only mode.** `<html>` sets `color-scheme: dark`; there is no `.dark` class, no `dark:` variants and no theme toggle.
-- `ThemeProvider` is no longer mounted and `Toaster` is fixed to `theme="dark"`. **Pending cleanup:** delete `providers/theme-provider/`, `components/theme-toggle/` and the `next-themes` dependency.
+- There is no theme library (`next-themes` was removed); `Toaster` is fixed to `theme="dark"`.
 - **Rule:** theme by token, never by class. Don't hard-code `bg-black`, `text-white`, primitives or hex values in components.
 
 ## Typography

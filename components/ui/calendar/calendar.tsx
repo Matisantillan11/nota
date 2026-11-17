@@ -68,7 +68,7 @@ function Calendar({
           defaultClassNames.dropdowns,
         ),
         dropdown_root: cn(
-          "relative rounded-md border border-border has-focus:border-primary has-focus:outline-2 has-focus:outline-offset-2 has-focus:outline-primary",
+          "relative rounded-md border border-border has-focus:border-foreground/40 has-focus:outline-2 has-focus:outline-offset-2 has-focus:outline-ring",
           defaultClassNames.dropdown_root,
         ),
         dropdown: cn(
@@ -203,7 +203,7 @@ function CalendarDayButton({
       className={cn(
         buttonVariants({ variant: "ghost", size: "icon" }),
         "flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 font-normal leading-none text-foreground",
-        "group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:outline-2 group-data-[focused=true]/day:outline-offset-2 group-data-[focused=true]/day:outline-primary",
+        "group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:outline-2 group-data-[focused=true]/day:outline-offset-2 group-data-[focused=true]/day:outline-ring",
         "data-[range-end=true]:rounded-md data-[range-end=true]:rounded-r-md data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground",
         "data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-accent data-[range-middle=true]:text-accent-foreground",
         "data-[range-start=true]:rounded-md data-[range-start=true]:rounded-l-md data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground",
