@@ -1,7 +1,7 @@
 ---
 version: alpha
-name: Spar - Nextjs Boilerplate
-description: A warm, editorial surface built around a single confident black accent on off-white/clay neutrals, never pure white or cool gray. Space Grotesk carries headings and UI chrome, Inter rides underneath as body/fallback. Structure is communicated through a warm tint ladder (background → card → border) rather than shadows, while a real, confirmed shadow system exists one layer up for floating and overlay surfaces (tooltips, popovers, the chat widget, modals). Card geometry is generously rounded (2xl), buttons stay closer to the ground (md), and pills/avatars/progress go fully round.
+name: NOTA. - Immersive 3D apparel e-commerce
+description: NOTA. ("Espacio Creativo.") is a monochrome streetwear studio with a space/sci-fi imagination. The store is a dark-only void where each garment floats as a live three.js object, lit like a hologram. Neutral black-and-gray surfaces, a near-white foreground, and a single electric "signal" blue reserved for light and focus. Jost everywhere, thin rules and four-point star ornaments for structure, slow GSAP motion with the occasional glitch. Minimal, premium, clean.
 
 colors:
   background: "var(--color-background)"
@@ -16,6 +16,7 @@ colors:
   muted-foreground: "var(--color-muted-foreground)"
   accent: "var(--color-accent)"
   accent-foreground: "var(--color-accent-foreground)"
+  signal: "var(--color-signal)"
   destructive: "var(--color-destructive)"
   destructive-foreground: "var(--color-destructive-foreground)"
   border: "var(--color-border)"
@@ -23,32 +24,42 @@ colors:
   ring: "var(--color-ring)"
 
 typography:
+  display:
+    fontFamily: Jost
+    fontSize: 88px
+    fontWeight: 300
+    lineHeight: 0.95
+    letterSpacing: "0.04em"
+    textTransform: uppercase
   heading-1:
-    fontFamily: "Space Grotesk"
-    fontSize: 60px
-    fontWeight: 700
-    lineHeight: 1
-    letterSpacing: "-0.02em"
+    fontFamily: Jost
+    fontSize: 48px
+    fontWeight: 300
+    lineHeight: 1.05
+    letterSpacing: "0.02em"
   title:
-    fontFamily: "Space Grotesk"
-    fontSize: 18px
-    fontWeight: 700
-    lineHeight: 1.3
-  label:
-    fontFamily: "Space Grotesk"
-    fontSize: 14px
-    fontWeight: 600
-    lineHeight: 1.3
-  body:
-    fontFamily: Inter
-    fontSize: 18px
+    fontFamily: Jost
+    fontSize: 20px
     fontWeight: 400
-    lineHeight: 1.6
+    lineHeight: 1.3
+  eyebrow:
+    fontFamily: Jost
+    fontSize: 12px
+    fontWeight: 500
+    lineHeight: 1.2
+    letterSpacing: "0.24em"
+    textTransform: uppercase
+  body:
+    fontFamily: Jost
+    fontSize: 16px
+    fontWeight: 300
+    lineHeight: 1.7
   caption:
-    fontFamily: Inter
+    fontFamily: Jost
     fontSize: 12px
     fontWeight: 400
-    lineHeight: 1.3
+    lineHeight: 1.4
+    letterSpacing: "0.04em"
 
 rounded:
   none: 0px
@@ -56,218 +67,268 @@ rounded:
   md: 6px
   lg: 8px
   xl: 12px
-  2xl: 16px
   full: 9999px
 
 spacing:
   unit: 4px
 
+motion:
+  duration-fast: 0.3s
+  duration-base: 0.6s
+  duration-slow: 1.2s
+  ease-default: "power3.out"
+  ease-reveal: "expo.out"
+  ease-inout: "power2.inOut"
+  stagger: 0.06s
+
 components:
   button-primary:
     backgroundColor: "{colors.primary}"
     textColor: "{colors.primary-foreground}"
-    rounded: "{rounded.md}"
-    padding: "12px 32px"
+    rounded: "{rounded.full}"
+    padding: "14px 32px"
+  button-ghost:
+    backgroundColor: transparent
+    textColor: "{colors.foreground}"
+    borderColor: "{colors.border}"
+    rounded: "{rounded.full}"
   card:
     backgroundColor: "{colors.card}"
     borderColor: "{colors.border}"
-    rounded: "{rounded.2xl}"
-  tooltip:
-    backgroundColor: "{colors.foreground}"
-    textColor: "{colors.background}"
     rounded: "{rounded.xl}"
+  tooltip:
+    backgroundColor: "{colors.secondary}"
+    textColor: "{colors.foreground}"
+    rounded: "{rounded.lg}"
 ---
 
 ## Overview
 
-The background itself is warm — a clay/cream off-white (`{colors.background}` — `var(--color-background)`), never pure white or neutral gray — with a single confident black (`{colors.primary}` — `var(--color-primary)`) doing all of the brand's emphasis work. There is no secondary "commercial accent" hue the way many systems reserve a second color for badges or savings callouts: black is the only accent signal, used for primary actions, active/hover states, and chart emphasis alike.
+NOTA. is a small apparel studio (tees, hoodies) whose bio is just "Espacio Creativo." — and "espacio" is taken literally: the brand's imagery is garments floating in voids, holograms, neon nightlife and glitches. The store continues that: the page is not a white sheet with product photos, it's a dark space where every garment is a real three.js object the user can turn, inspect and approach. The UI is the thinnest possible layer on top: type, thin rules and light.
 
-Two typefaces carry the whole UI: **Space Grotesk** for headings and UI labels, **Inter** underneath for body copy, both self-hosted via Google Fonts at confirmed weight ranges (Space Grotesk 400–700, Inter 300–600). Card geometry is generously rounded (`{rounded.2xl}`, 16px) — noticeably softer than the buttons sitting inside those cards, which stay closer to the ground at `{rounded.md}` (6px). Pills, avatars, and progress indicators go fully round.
+Three words decide every call: **minimal, premium, clean**. When in doubt, remove.
 
-Elevation is not shadow-free the way some monochrome systems are: resting cards get a light `shadow-sm`, hover lifts to `shadow-md`, and floating/overlay surfaces (tooltips, popovers, the chat widget panel, modals) commit to `shadow-lg`–`shadow-2xl`. Day-to-day layout hierarchy, though, still leans first on the warm neutral ladder (background → card → border) before reaching for a shadow.
+### Brand analysis
+
+Source: the brand's Instagram (`@nota__studio_`, 6 posts + highlights, reviewed 2026-11-17).
+
+| Observed                                                                                                                                                | What it means for the site                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Logo `NOTA.` — uppercase geometric sans, light/regular weight, white on a solid black circle                                                            | Jost is the right (and only) typeface. The period is part of the identity.                                          |
+| The first collection is literally called **MONOCHROME**: black/white hoodie with reflective lines, "designed to stand out in the light and in the dark" | The UI palette is strictly neutral (black → gray → white). Contrast between light and dark is the main design move. |
+| 3D renders: a garment floating inside a soft gray tunnel/portal, vignette, film grain                                                                   | Products live in a "portal" — a soft-lit void with depth, never a flat card with a photo.                           |
+| An electric-blue scanline **hologram** of a tee over a near-black navy floor                                                                            | The one brand hue is a light, not a paint: `signal` blue, for glow, 3D lighting and focus only.                     |
+| An RGB-split **glitch** on a tee render (magenta/green fringes) during a color reveal                                                                   | Glitch is an allowed transition effect (reveals, variant changes), used sparingly.                                  |
+| Nightlife photography: DJ booths, violet neon, flash B&W portraits, sunglasses                                                                          | Editorial/lifestyle photography can carry color (violet neon); the UI never does.                                   |
+| Posts are framed by thin outer lines, short centered horizontal rules and `✦` four-point stars around uppercase titles                                  | Thin rules and the `✦` ornament are the structural motifs — not boxes or shadows.                                   |
+| Copy is short, Spanish, and ends with a period: "NOTA.", "Espacio Creativo.", "Social.", and the sign-off **"not available."**                          | Voice: terse, declarative, lowercase sign-offs with a period. "not available." is the brand's tagline.              |
 
 **Key Characteristics:**
 
-- Warm off-white/clay background (`var(--color-background)`), never pure white or cool gray — the palette's defining trait
-- One black accent (`{colors.primary}`) for every emphasis need; no second "commercial" hue
-- Space Grotesk headings over an Inter body/fallback, both self-hosted
-- Card radius (`{rounded.2xl}`, 16px) is deliberately softer than button radius (`{rounded.md}`, 6px)
-- Real, confirmed shadow ladder for floating/overlay surfaces — not a shadow-free system
-- Destructive state uses a single confirmed red (`{colors.destructive}` — `var(--color-destructive)`); no confirmed warning/success/info colors on the public marketing site
+- **Dark only.** No light theme, no toggle. The floor is the hologram post's near-black (`#06060A`), never pure `#000000`.
+- **Monochrome UI.** Neutral grays with no tint; `{colors.primary}` is near-white. Emphasis comes from brightness.
+- **One light, `signal` blue.** Used as light (3D rim/hologram, glows, focus), never as a fill for buttons, badges or text blocks.
+- **One typeface: Jost** — light weights for large text, wide-tracked uppercase for small labels and titles.
+- **Thin rules + `✦` stars** instead of shadows or heavy containers.
+- **Products are 3D, always**, presented in a portal-like void.
+- **Motion is slow and weightless** (GSAP), with glitch as the one sharp exception.
+
+> **Status:** these are the target tokens. `app/globals.css`, `app/layout.tsx` (fonts) and the theme provider are applied. Still pending: removing the leftover `next-themes` theme toggle and restyling `components/ui` to these tokens (radii, weights, no shadows).
 
 ## Colors
 
-All values live in `app/globals.css`: primitives (`--color-base-*`, `--color-gray-*`, `--color-text-*`, …) and the semantic tokens that alias them, both in `@theme`. Components use the semantic names only, never primitives or raw hex values.
+All values live in `app/globals.css`: primitives and the semantic tokens that alias them, both in `@theme`. Components use the semantic names only, never primitives or raw hex values. There is a single palette — no `.dark` variant, because dark is the only mode. Hex values were sampled from the brand's posts where noted.
 
-| Token                            | Light     | Dark    | Use                                         |
-| -------------------------------- | --------- | ------- | ------------------------------------------- |
-| `background`                     | `#FFFFFF` | pending | Page floor                                  |
-| `card`                           | `#F9F7F6` | pending | Cards, popovers                             |
-| `secondary` / `muted`            | `#F2F0ED` | pending | Secondary buttons, muted panels             |
-| `accent`                         | `#E8E3DE` | pending | Hover/highlight states                      |
-| `border` / `input`               | `#DBD3CC` | pending | Every structural line and input border      |
-| `foreground` / `card-foreground` | `#27211B` | pending | Headings and body                           |
-| `muted-foreground`               | `#756252` | pending | Secondary copy, captions                    |
-| `primary` / `ring`               | `#000000` | pending | Primary action, active state, focus         |
-| `primary-foreground`             | `#FFFFFF` | pending | Text on primary                             |
-| `destructive`                    | `#D32222` | pending | Destructive actions/states                  |
+| Token                                             | Value                     | Source / use                                                                   |
+| ------------------------------------------------- | ------------------------- | ------------------------------------------------------------------------------ |
+| `background`                                      | `#06060A`                 | Sampled from the hologram post's floor. Page floor / scene backdrop            |
+| `card`                                            | `#0E0E11`                 | Cards, popovers, panels                                                        |
+| `secondary` / `muted`                             | `#16161A`                 | Secondary fills, muted panels, tooltips                                        |
+| `accent`                                          | `#1F1F23`                 | Hover/highlight states                                                         |
+| `border` / `input`                                | `rgb(242 242 242 / 0.10)` | Every structural hairline and input border                                     |
+| `foreground` / `card-foreground` / `*-foreground` | `#F2F2F2`                 | Headings and body — the logo's white, softened                                 |
+| `muted-foreground`                                | `#8A8A8A`                 | Sampled from the MONOCHROME renders' mid-gray. Secondary copy, captions        |
+| `primary`                                         | `#F2F2F2`                 | Primary action, active state                                                   |
+| `primary-foreground`                              | `#06060A`                 | Text on primary                                                                |
+| `signal`                                          | `#1E90FF`                 | Hologram blue (sampled halo `#1370BD`, brightened to its core). Glow, 3D light |
+| `ring`                                            | `#1E90FF`                 | Focus ring = `signal`                                                          |
+| `destructive`                                     | `#E5484D`                 | Destructive actions/states, form errors                                        |
+| `destructive-foreground`                          | `#F2F2F2`                 | Text on destructive                                                            |
 
-> **Known mismatch:** the prose below describes a warm clay `background` with a _lighter_ `card`, but `globals.css` currently ships `background` = pure white and `card` = warm `#F9F7F6` (darker than the page). Decide which is the truth and fix the other.
+**Scene-only colors** (3D lights, photography, effects — never UI tokens):
 
-### Brand
+| Name           | Value                 | Source / use                                                       |
+| -------------- | --------------------- | ------------------------------------------------------------------ |
+| Neon violet    | `#8819D4`             | Sampled from the DJ post. Secondary/fill light in nightlife scenes |
+| Glitch fringes | magenta + green split | The tee color-reveal post. Only inside the glitch effect           |
+| Portal grays   | `#727272` → `#B4B4B4` | MONOCHROME renders. Studio/portal environment in 3D                |
 
-- **Primary** (`{colors.primary}` — `var(--color-primary)`): The brand color and only accent. Fills primary CTAs, active/hover indicators, and the chart-emphasis palette.
-- **Primary Foreground** (`{colors.primary-foreground}` — `var(--color-primary-foreground)`): Text/icon color on top of primary fills.
+### Principles
 
-### Surface
-
-- **Background** (`{colors.background}` — `var(--color-background)`): Page background. A warm clay off-white — the single biggest tell that this isn't a generic SaaS gray/white system.
-- **Card** (`{colors.card}` — `var(--color-card)`): Card and popover fill. Notably _lighter_ than the page background rather than darker — cards sit as a bright plane on a warm floor, the inverse of the more common "card slightly darker than page" convention.
-- **Secondary** / **Muted** / **Accent** (`{colors.secondary}` / `{colors.muted}` / `{colors.accent}` — `var(--color-secondary)` / `var(--color-muted)` / `var(--color-accent)`): Subtle fills for secondary buttons, muted panels, and hover/highlight states — not yet independently confirmed brand truth beyond what's implemented in `app/globals.css`.
-- **Border** / **Input** (`{colors.border}` / `{colors.input}` — `var(--color-border)` / `var(--color-input)`): The one confirmed border/divider tone, reused for input borders too. No second soft/strong hairline tier was observed — a single border weight does the job everywhere from cards to inputs.
-
-### Text
-
-- **Foreground** (`{colors.foreground}` — `var(--color-foreground)`): Headings and primary body text. A warm near-black, not neutral.
-- **Muted Foreground** (`{colors.muted-foreground}` — `var(--color-muted-foreground)`): Secondary copy, captions, supporting text.
-- **Card Foreground** / **Secondary Foreground** / **Accent Foreground** (`{colors.card-foreground}` / `{colors.secondary-foreground}` / `{colors.accent-foreground}` — `var(--color-card-foreground)` / `var(--color-secondary-foreground)` / `var(--color-accent-foreground)`): Same warm near-black as `foreground`, used for text sitting on `card`/`secondary`/`accent` fills.
-
-### Semantic
-
-- **Destructive** (`{colors.destructive}` — `var(--color-destructive)`): The one confirmed semantic color on the public marketing site (destructive actions/states).
-- **Destructive Foreground** (`{colors.destructive-foreground}` — `var(--color-destructive-foreground)`): Text/icon color on top of destructive fills.
-- **Ring** (`{colors.ring}` — `var(--color-ring)`): Focus ring color, aliased to `primary`.
-- No warning, success, info surfaces. This codebase (`app/globals.css`) extends the palette with muted warning/success/blue/aqua scales in the same warm, desaturated character for future in-app UI (dashboards, forms) — treat those as this codebase's extension, not scraped brand truth.
+- **Neutral, not tinted.** Grays have no blue/warm cast — the brand is literally monochrome. The near-black floor's faint blue (`#06060A`) is the only exception, and it comes from the hologram post.
+- **Light is the accent.** Brighter = more important: `muted-foreground` → `foreground` → `primary` fill. `signal` marks things that are "lit" (focus, the active 3D object, a hologram/loading state), not things that are "important".
+- **`signal` stays rare.** If more than one or two things on screen glow blue, it's overused.
+- **Pure `#000` and `#FFF` are reserved for the logo.**
+- **Contrast:** `foreground` and `muted-foreground` on `background`/`card` must meet WCAG AA for their size. `muted-foreground` is for secondary copy only.
+- **Status colors** beyond `destructive` are not defined — prefer a neutral message in `foreground` before inventing a green.
 
 ## Dark mode
 
-- **Mechanism:** `next-themes` (`ThemeProvider` in `providers/theme-provider/`, `attribute="class"`, `defaultTheme="system"`, light/dark/system available) toggles `.dark` on `<html>`. `ThemeToggle` (`components/theme-toggle/`) is the switch.
-- **Status:** `app/globals.css` has **no `.dark` block yet** — every token in the Colors table above is light-only, so dark mode currently renders the light palette. Next step: add a `.dark` block redefining the semantic tokens (keep the warm character — warm near-black floor, not neutral gray) plus `@custom-variant dark (&:where(.dark, .dark *))` so `dark:` follows the chosen theme instead of the OS media query, and `color-scheme: dark`.
-- **Rule:** theme by token, not by class. Components shouldn't need `dark:` variants — if something looks wrong in dark mode, fix the token in `.dark`. `dark:` is acceptable only for a one-off with no token (e.g. an illustration).
-- **Elevation in dark:** shadows alone disappear on a dark floor — floating layers should add a subtle light 1px ring (e.g. `rgb(255 255 255 / 0.04–0.06)`) to separate from the page.
+- **Dark is the only mode.** `<html>` sets `color-scheme: dark`; there is no `.dark` class, no `dark:` variants and no theme toggle.
+- `ThemeProvider` is no longer mounted and `Toaster` is fixed to `theme="dark"`. **Pending cleanup:** delete `providers/theme-provider/`, `components/theme-toggle/` and the `next-themes` dependency.
+- **Rule:** theme by token, never by class. Don't hard-code `bg-black`, `text-white`, primitives or hex values in components.
 
 ## Typography
 
 ### Font Family
 
-**Space Grotesk** carries headings and UI labels; **Inter** rides underneath as body copy and as the fallback if Space Grotesk fails to load (`"Space Grotesk", "Inter", sans-serif`). Both are self-hosted via Google Fonts, confirmed at Space Grotesk 400/500/600/700 and Inter 300/400/500/600. Neither is a generic system-font stack — this is a deliberate two-typeface pairing, not one family doing everything.
+**Jost** is the only typeface — a geometric sans in the Futura tradition, matching the `NOTA.` wordmark. Loaded with `next/font/google` as a variable font (weights 300–600 in use), exposed as `--font-sans`. Fallback: `ui-sans-serif, system-ui, sans-serif`.
+
+The MONOCHROME post sets its title in a wide, rounded-square sci-fi display face. The site does **not** adopt it: collection titles use `{typography.display}` (Jost, uppercase, open tracking) framed by `✦` stars, which keeps the same feeling with one family. Revisit only if the brand provides that face as an official asset.
 
 ### Hierarchy
 
-Confirmed combinations observed directly in the production bundle (not the full generic Tailwind scale — only what's actually used):
-
-| Token                    | Classes                                                | Size                | Weight | Tracking | Use                           |
-| ------------------------ | ------------------------------------------------------ | ------------------- | ------ | -------- | ----------------------------- |
-| `{typography.heading-1}` | `text-4xl md:text-6xl font-bold tracking-tighter`      | 36px → 60px (`md:`) | 700    | tighter  | Page hero headline            |
-| `{typography.title}`     | `text-lg font-bold`                                    | 18px                | 700    | normal   | Card/feature titles           |
-| `{typography.label}`     | `text-sm font-semibold`                                | 14px                | 600    | normal   | Nav wordmark, small UI labels |
-| `{typography.body}`      | `text-lg`                                              | 18px                | 400    | normal   | Lead/body paragraphs          |
-| `{typography.caption}`   | `text-xs`                                              | 12px                | 400    | normal   | Tooltip/badge microcopy       |
+| Token                    | Classes                                                                         | Size                | Weight | Tracking | Use                                         |
+| ------------------------ | ------------------------------------------------------------------------------- | ------------------- | ------ | -------- | ------------------------------------------- |
+| `{typography.display}`   | `text-5xl md:text-[88px] font-light uppercase tracking-[0.04em] leading-[0.95]` | 48px → 88px (`md:`) | 300    | 0.04em   | Collection titles (`✦ MONOCHROME ✦`), hero  |
+| `{typography.heading-1}` | `text-4xl md:text-5xl font-light tracking-[0.02em]`                             | 36px → 48px         | 300    | 0.02em   | Section headlines, product name on its page |
+| `{typography.title}`     | `text-xl font-normal`                                                           | 20px                | 400    | normal   | Product names in grids, card titles         |
+| `{typography.eyebrow}`   | `text-xs font-medium uppercase tracking-[0.24em]`                               | 12px                | 500    | 0.24em   | Eyebrows, nav links, labels, button text    |
+| `{typography.body}`      | `text-base font-light leading-relaxed`                                          | 16px                | 300    | normal   | Body copy, product descriptions             |
+| `{typography.caption}`   | `text-xs tracking-wide`                                                         | 12px                | 400    | 0.04em   | Microcopy, tooltips, legal                  |
 
 ### Principles
 
-- **Weight, not size, does most of the emphasis work** below the hero — a `700` title next to `400` body at similar sizes reads as hierarchy without reaching for a bigger font size.
-- **Tighter tracking on the hero only** — `tracking-tighter` appears on the large headline; smaller text runs at normal tracking.
+- **Big and light, small and wide.** Avoid bold (700+) entirely.
+- **Few sizes.** If a screen needs a size that isn't in the table, the layout is probably too busy.
+- **Prices** use `{typography.title}` with `tabular-nums`.
+- **Product descriptions are short and centered** under a thin rule, like the posts — two short paragraphs at most.
+
+### Voice
+
+- Spanish, terse, declarative. Sentences and labels end with a period where it reads naturally ("Social.", "Espacio Creativo.").
+- **"not available."** — lowercase, with the period — is the brand's sign-off. Use it as the footer/tagline and for sold-out states, in `{typography.body}` or `{typography.title}`, never uppercase.
 
 ## Layout
 
 ### Spacing System
 
-- **Base unit**: 4px (Tailwind's default scale) — confirmed token, no custom named spacing scale.
+- **Base unit**: 4px (Tailwind's default scale).
+- **Be generous.** Sections breathe with `py-24`–`py-40`; the 3D object always gets the most space on screen.
 
 ### Grid & Container
 
-- _Not yet defined — pending closer study of the live site's section/grid structure beyond individual component classes._
+- Full-bleed scene, contained UI: the three.js canvas spans the viewport; text and controls sit in a `max-w-7xl` container with `px-6 md:px-12` gutters on top of it.
+- **Centered, symmetric compositions** for product and collection moments (title on top, object in the middle, description and sign-off below), like the brand's posts. Grids and checkout can be left-aligned.
+- Product grids: 1 column on mobile, 2 at `md:`, 3 at `lg:` — never denser.
 
 ### Responsive Strategy
 
-- Default Tailwind breakpoints, no custom overrides detected in the compiled CSS.
-- `md:` is the confirmed primary responsive prefix in use (e.g. the hero headline steps from 36px to 60px at `md:`).
-- Full breakpoint-by-breakpoint behavior: _not yet defined._
+- Default Tailwind breakpoints. Mobile is a first-class target (the brand lives on Instagram; most visitors arrive on a phone).
 
 ## Elevation & Depth
 
-| Level   | Treatment                                              | Use                                               |
-| ------- | ------------------------------------------------------ | ------------------------------------------------- |
-| 0       | Flat, no shadow                                        | Default page content                              |
-| 1       | `shadow-sm`                                            | Resting cards                                     |
-| 2       | `shadow-md`                                            | Card hover state (lifts on interaction)           |
-| 3       | `shadow-lg`                                            | Floating action button (chat launcher)            |
-| 4       | `shadow-xl` / `shadow-2xl`                             | Tooltips, popovers, modals, the chat widget panel |
-| Inverse | `{colors.foreground}` fill, `{colors.background}` text | Tooltips (dark chip on light page)                |
+Depth comes from the scene itself (perspective, the portal's falloff, light), not from shadows. UI layers separate with tint, hairline and blur:
 
-Confirmed via `shadow-*` utility classes in the production bundle — this is a real, deliberate elevation ladder, not a shadow-free system. Day-to-day section/card hierarchy still leans on the warm neutral ladder (background → card → border) before reaching for a shadow; shadows are reserved for things that float above the page (overlays, hover lifts, the FAB).
+| Level | Treatment                                                            | Use                                                                     |
+| ----- | -------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| 0     | `{colors.background}`, no border                                     | Page floor / scene backdrop                                             |
+| 1     | `{colors.card}` + 1px `{colors.border}`                              | Cards, panels                                                           |
+| 2     | `bg-card/60 backdrop-blur-xl` + 1px `{colors.border}`                | UI floating over the 3D canvas (nav, cart drawer, product info overlay) |
+| 3     | `{colors.secondary}` + 1px `{colors.border}` + `ring-1 ring-white/5` | Popovers, tooltips, dialogs                                             |
 
-## Shapes
+- **No `shadow-*` utilities.**
+- **Glow is the only "shadow"**, in `signal`, and only for focus or the currently active/lit object.
+- **Film grain:** a very subtle static noise overlay over the whole page is allowed (the renders have it); it must not animate or reduce text contrast.
 
-### Border Radius Scale
+## Shapes & ornaments
 
-Confirmed by usage frequency in the production bundle (most‑used first):
+| Token            | Value  | Use                                                   |
+| ---------------- | ------ | ----------------------------------------------------- |
+| `{rounded.full}` | 9999px | Buttons, inputs, pills, badges, avatars, icon buttons |
+| `{rounded.xl}`   | 12px   | Cards, dialogs, drawers' inner panels                 |
+| `{rounded.lg}`   | 8px    | Tooltips, popovers, small chrome                      |
+| `{rounded.md}`   | 6px    | Checkbox, small form details                          |
 
-| Token            | Value  | Use                                                                                          |
-| ---------------- | ------ | -------------------------------------------------------------------------------------------- |
-| `{rounded.full}` | 9999px | Pills, avatars, progress bars, toggle switches, the chat FAB — the single most common radius |
-| `{rounded.2xl}`  | 16px   | Cards, feature tiles, modals, the chat widget panel — the standard "card" radius             |
-| `{rounded.xl}`   | 12px   | Secondary tiles, tooltips/popovers                                                           |
-| `{rounded.lg}`   | 8px    | Badges/tags, smaller chrome                                                                  |
-| `{rounded.md}`   | 6px    | Buttons, form inputs                                                                         |
-| `{rounded.sm}`   | 4px    | Fine details (least common)                                                                  |
+- **Thin rules:** 1px `{colors.border}` (or `foreground/40` when it must read) horizontal lines, short (`w-24`) and centered between title / object / description; full-width for section dividers. A thin frame line around a full-screen product moment is allowed.
+- **`✦` (four-point star):** flanks collection titles (`✦ MONOCHROME ✦`) and can mark list items. Always `{colors.foreground}`, the size of the cap height. Never more than one pair per screen.
 
-Notably, buttons (`{rounded.md}`) are meaningfully less rounded than the cards they sit inside (`{rounded.2xl}`) — a deliberate two-tier geometry rather than one radius reused everywhere.
+## Motion
+
+GSAP drives all animation (see `FOUNDATIONS.md` → **Wrapping third-party dependencies**). CSS transitions are fine for trivial hover/focus color changes only.
+
+| Token                    | Value          | Use                                                   |
+| ------------------------ | -------------- | ----------------------------------------------------- |
+| `{motion.duration-fast}` | 0.3s           | Hover, focus, small UI feedback                       |
+| `{motion.duration-base}` | 0.6s           | Drawers, dialogs, element entrances                   |
+| `{motion.duration-slow}` | 1.2s           | Hero reveals, camera moves, page transitions          |
+| `{motion.ease-default}`  | `power3.out`   | Default for everything entering or responding         |
+| `{motion.ease-reveal}`   | `expo.out`     | Large reveals (hero text, product entering the scene) |
+| `{motion.ease-inout}`    | `power2.inOut` | Camera moves and scroll-scrubbed sequences            |
+| `{motion.stagger}`       | 0.06s          | Lists, split-text lines/words                         |
+
+### Principles
+
+- **Weightless, not springy.** Long ease-outs and gentle drift. No `bounce`, `elastic` or `back` eases.
+- **Animate `transform` and `opacity` only** (and three.js object/camera/material properties). Never animate layout properties.
+- **Typical entrance:** `opacity 0 → 1`, `y 24 → 0` (or `blur(8px) → 0`), `{motion.duration-base}`, `{motion.ease-default}`.
+- **Glitch is the signature transition** — a short (≤ 0.4s) RGB-split / slice displacement, used for reveals and color-variant changes (as in the brand's color-reveal post). At most one glitch per interaction; never on text the user is reading.
+- **Hologram is the signature loading state** — the garment drawn as `signal`-blue scanlines over the floor, resolving into the real material when loaded.
+- **Scroll is a camera, not a slideshow.** ScrollTrigger sequences move the 3D camera or the object through space; pin + scrub with `{motion.ease-inout}`.
+- **`prefers-reduced-motion` is mandatory:** wrap timelines in `gsap.matchMedia()`; under reduced motion use plain fades, no glitch, no scroll-scrubbed camera moves, no ambient drift or auto-rotate.
+
+## 3D
+
+Every product is shown as an interactive three.js object. The canvas is part of the page's space, not a box embedded in it.
+
+- **One space:** the canvas is transparent or clears to `{colors.background}` — never a visible canvas edge or a different-colored stage.
+- **Portal staging:** garments float (no mannequin, no floor contact) inside a soft-lit void — a subtle receding frame/tunnel with vignette, as in the MONOCHROME renders. Portal grays come from the scene-only table above.
+- **Light:** a neutral key, a `signal`-blue rim to separate the garment from the floor, physically based materials with an environment map. Reflective details (e.g. the MONOCHROME reflective lines) should catch the light as the object turns — "stand out in the light and in the dark". `ACESFilmicToneMapping`, sRGB output.
+- **Interaction:** drag/touch to orbit with damping, no panning, clamped zoom. Slow idle auto-rotate that stops on interaction and resumes after a pause.
+- **Atmosphere:** sparse stars/particles or a faint scanline floor ring (from the hologram post) can add depth. It must never compete with the garment.
+- **Assets:** glTF binary (`.glb`) with compressed geometry/textures.
+- **Loading:** the hologram state (see **Motion**) or a still poster with the same framing, then cross-fade. Never a spinner on an empty void.
+- **Performance budget:** cap device pixel ratio at 2, render only while the canvas is on screen, pause when the tab is hidden, dispose geometries/materials/textures on unmount.
+- **Fallback:** without WebGL, show the poster image — purchasing must never depend on 3D working.
+- **Accessibility:** the canvas has a text alternative (product name + short description); every purchase action (size, color, add to cart) lives in regular DOM controls, never only inside the scene.
 
 ## Components
 
 ### Logo
 
-Confirmed markup (source of truth, `public/brand/spar-symbol.svg`, not reverse-engineered):
+Observed on the brand's Instagram profile. No vector source yet:
 
-```html
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-  <title>Spar logo</title>
-  <path
-    d="M128,30 A72,49 0 0,0 128,128 A72,49 0 0,1 128,226"
-    fill="none"
-    stroke="#000000"
-    stroke-width="46"
-    stroke-linecap="square"
-  />
-</svg>
-```
-
-A single continuous stroke forming an "S" spiral mark (ink/black, `#FFFFFF` on dark surfaces), paired with an uppercase **SPAR** wordmark set in Space Grotesk 700 at tight tracking. Delivered as standalone assets in `public/brand/` — `spar-symbol(-white).svg` (mark only), `spar-horizontal(-white).svg` (mark + wordmark, lockup), `spar-stacked(-white).svg` (mark over wordmark), and `spar-app-icon.svg` (mark inset in a rounded black square, favicon/app icon). `app/icon.svg` and `public/logo-mark.svg` mirror the same mark.
+- **Wordmark:** `NOTA.` — all caps, a geometric sans in the Futura/Jost family (circular `O`, pointed `A`, monoline strokes) at a regular-to-light weight with moderate open tracking, closed by a period that is part of the mark.
+- **Lockup:** white wordmark centered in a solid black circle (avatar/app-icon form). The brand also uses a plain black circle on its own ("Social." highlight) as a secondary mark.
+- **Color:** pure black and white only. On the site it sits directly on `{colors.background}` in `{colors.foreground}`, without the circle; the circle lockup is for favicon/app icon.
+- Until a vector file exists, set it in Jost (`font-normal uppercase tracking-[0.08em]`) rather than tracing the bitmap. App icons (`app/favicon.ico`, `public/icon-192.png`, `public/icon-512.png`, `public/maskable-512.png`, `public/apple-icon.png`) are rendered from Jost in the circle lockup; regenerate them once a vector logo exists.
 
 ### Buttons
 
-**`button-primary`**
+**`button-primary`** — fill `{colors.primary}`, label `{colors.primary-foreground}`, `{rounded.full}`, label in `{typography.eyebrow}`. Hover: slight brightness change. Focus: `signal` ring/glow.
 
-- Fill `{colors.primary}`, label `{colors.primary-foreground}`, shape `{rounded.md}` (shadcn `Button` base chrome: `text-sm font-medium`, focus ring)
-- Confirmed padding variants: `px-8 py-3` (standard CTA), `h-12` + `text-base` (larger hero CTA)
+**`button-ghost`** — transparent, 1px `{colors.border}`, `{colors.foreground}` label, `{rounded.full}`. Hover: border to `foreground/40` and `bg-accent/40`.
 
 ### Cards
 
-**`card`**
-
-- Fill `{colors.card}`, 1px `{colors.border}` border, shape `{rounded.2xl}`
-- Confirmed padding variants: `p-6`, `p-7`, `px-8 py-7`
-- Hover state adds a `{colors.primary}`-tinted border and, on some tiles, lifts from `shadow-sm` to `shadow-md`
+**`card`** — fill `{colors.card}`, 1px `{colors.border}`, `{rounded.xl}`. Product cards are mostly the garment (3D or poster) in its portal; title (`{typography.title}`) and price sit quietly below. Hover: border brightens and the garment turns slightly — no shadow lift. Sold out: "not available." in place of the price.
 
 ### Overlays
 
-**`tooltip`**
+**`tooltip`** — `{colors.secondary}` fill, `{colors.foreground}` text, `{rounded.lg}`, `{typography.caption}`, hairline border.
 
-- Inverse fill (`{colors.foreground}` background, `{colors.background}` text), `{rounded.xl}`, `shadow-xl`, `{typography.caption}` text
-- The chat widget panel and modals follow the same inverse-elevation logic at `{rounded.2xl}` and `shadow-2xl`
+Dialogs, drawers (cart) and popovers use elevation level 2–3 and enter with `{motion.duration-base}` + `{motion.ease-default}`.
 
 ### Inputs & Forms
 
-- `rounded-md border border-input bg-transparent text-foreground` — no filled input background. Sizes track `Button`'s (`sm` `h-9 px-3 text-xs`, default `h-10 px-4 text-sm`, `lg` `h-12 px-4 text-base`) so an input and a button of the same size line up in a row.
-- Hover and focus `border-primary`; invalid (`aria-invalid`) `border-destructive` with a destructive focus outline; disabled `opacity-50`.
+- `rounded-full border border-input bg-transparent text-foreground`, no filled background. Sizes match `Button`'s so they line up in a row.
+- Hover: border to `foreground/40`; focus: `signal` ring; invalid (`aria-invalid`) `border-destructive`; disabled `opacity-40`.
 
 ### Badges
 
-- `rounded-full px-2.5 py-0.5 text-xs font-medium`, `size-3` icons. Variants: `primary` (`bg-primary`), `secondary` (`bg-secondary`), `destructive`, `outline` (`border-foreground/30`, transparent fill).
+- `rounded-full px-3 py-1` in `{typography.eyebrow}`; outline (hairline) by default. Use wording, not color ("new.", "not available.").
 
-### Other components (nav, data tables, etc.)
+### Other components (nav, cart, checkout, etc.)
 
 - _Not yet defined — extend this section with each component's exact classes as it's built (see `components/ui/<name>/` constants for the source of truth)._
 
@@ -275,17 +336,19 @@ A single continuous stroke forming an "S" spiral mark (ink/black, `#FFFFFF` on d
 
 ### Do
 
-- Keep the background warm (`{colors.background}` clay off-white) — never drop to pure white or neutral gray as the page background.
-- Reserve `{colors.primary}` as the only chromatic accent; don't introduce a second "commercial" hue for badges/callouts.
-- Round cards more than buttons — `{rounded.2xl}` containers holding `{rounded.md}` actions, not one radius reused everywhere.
-- Use the shadow ladder (`shadow-sm` → `shadow-2xl`) for things that float above the page; use the neutral tint ladder for everyday section/card hierarchy.
-- Pair Space Grotesk (headings/labels) with Inter (body) — don't collapse to a single family.
-- Theme with semantic tokens; check every new screen in light **and** dark.
+- Let the garment and the empty space do the work.
+- Keep the UI monochrome; let `signal` blue appear only as light.
+- Use Jost only: light weights large, wide uppercase small.
+- Structure with thin rules and the `✦` star; center product moments.
+- Keep the canvas and the page one continuous space; stage garments in a portal.
+- Use GSAP, keep it weightless, glitch sparingly, honor `prefers-reduced-motion`.
+- Write short, with periods; sign off with "not available."
 
 ### Don't
 
-- Don't use pure white/gray surfaces — the warm clay background is the brand's most identifiable trait.
-- Don't invent a second accent hue for emphasis; black carries every "look here" moment.
-- Don't apply `{rounded.full}` to cards or `{rounded.2xl}` to buttons — the two-tier radius system is deliberate.
-- Don't assume this is a shadow-free system — overlays and hover states have a real, confirmed elevation ladder.
-- Don't hard-code `bg-white`, `text-black`, primitives or hex colours in components; they break dark mode.
+- Don't add a light theme, a theme toggle or `dark:` variants.
+- Don't use pure black/white outside the logo, tinted grays, or `signal`/violet as a UI fill.
+- Don't use drop shadows, bold (700+) weights, decorative gradients or a second typeface.
+- Don't use bounce/elastic/back eases, animate layout properties, or glitch text being read.
+- Don't show a spinner on an empty canvas, or make purchasing depend on WebGL.
+- Don't hard-code hex colours or primitives in components.

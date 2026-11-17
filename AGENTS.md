@@ -21,4 +21,4 @@ Read these every session before writing code, regardless of the task — they go
 
 ### Read only when relevant
 
-- [`DESIGN.md`](./DESIGN.md) — visual design tokens: color, typography, spacing, radius, elevation. Read **only** when the task touches UI/styling or `components/ui/` (the design system). Skip it for non-visual work (logic, data, config, infra).
+- [`DESIGN.md`](./DESIGN.md) — visual design: color, typography (Jost), spacing, radius, elevation, motion (GSAP) and 3D (three.js) rules. Dark-only. Read **only** when the task touches UI/styling, animation, the 3D viewer or `components/ui/` (the design system). Skip it for non-visual work (logic, data, config, infra).

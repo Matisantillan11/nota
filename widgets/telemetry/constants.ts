@@ -6,7 +6,7 @@ export const DEFAULT_CAPTURE_MESSAGE_LEVEL = "info";
 
 /**
  * Closed vocabulary of Sentry tag/error-name categories for this app. Empty
- * for now — spar is a component library with no established error domains
+ * for now — NOTA. has no established error domains
  * yet. Add entries here as real categories emerge (e.g. per `widgets/<name>`
  * module), then reference them via `TELEMETRY_TAGS.<KEY>` instead of a raw
  * string.

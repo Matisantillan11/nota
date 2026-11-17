@@ -2,15 +2,15 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Not Available",
-    short_name: "Not Available",
-    description: "A strong technical base for agentic development.",
+    name: "NOTA.",
+    short_name: "NOTA.",
+    description: "Espacio Creativo.",
     // Literal hex, not var(--color-primary): the Web App Manifest is
     // static JSON read by the OS/browser chrome outside any CSS context, so
-    // it can't resolve a CSS custom property. Matches the primary token —
+    // it can't resolve a CSS custom property. Matches the background token —
     // keep in sync if that token's value ever changes.
-    theme_color: "#000000",
-    background_color: "#000000",
+    theme_color: "#06060a",
+    background_color: "#06060a",
     display: "standalone",
     icons: [
       { src: "/icon-192.png", sizes: "192x192", type: "image/png" },

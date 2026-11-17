@@ -1,4 +1,4 @@
-# Contributing to Not Available
+# Contributing to NOTA.
 
 This document describes how we collaborate on this project: our GitHub workflow, branch naming convention, and commit message convention.
 

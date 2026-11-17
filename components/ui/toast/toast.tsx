@@ -3,17 +3,12 @@
 import { Toaster as SonnerToaster } from "sonner";
 import { ToasterProps } from "./types";
 import { cn } from "~/utils/cn";
-import { useMounted } from "~/hooks/use-mounted";
-import { useTheme } from "next-themes";
 
 function Toaster({ className, toastOptions, ...props }: ToasterProps) {
-  const { resolvedTheme } = useTheme();
-  const mounted = useMounted();
-
   return (
     <SonnerToaster
       data-slot="toaster"
-      theme={mounted ? (resolvedTheme as ToasterProps["theme"]) : "light"}
+      theme="dark"
       className={cn("toaster group", className)}
       toastOptions={{
         ...toastOptions,

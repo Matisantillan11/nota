@@ -4,8 +4,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import Toaster from "./toast";
 import { toast } from "sonner";
 
-// next-themes reads `prefers-color-scheme` via matchMedia, which jsdom
-// doesn't implement (see theme-toggle.spec.tsx for the same gap).
+// sonner reads matchMedia, which jsdom doesn't implement.
 beforeEach(() => {
   window.matchMedia =
     window.matchMedia ??

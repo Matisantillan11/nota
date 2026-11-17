@@ -24,7 +24,7 @@ File names are **descriptive and kebab-case, with no type segment** before the e
 | `avatar.component.tsx`      | `avatar.tsx`          |
 | `get-avatar-label.utils.ts` | `get-avatar-label.ts` |
 | `use-debounce.hook.ts`      | `use-debounce.ts`     |
-| `theme-options.constant.ts` | `theme-options.ts`    |
+| `sort-options.constant.ts`  | `sort-options.ts`     |
 | `billing.service.ts`        | `billing.ts`          |
 
 **Exception — tooling suffixes stay.** Vitest and Storybook find files by suffix, so these keep their segment:
@@ -41,7 +41,7 @@ Never use PascalCase or camelCase file names (no `Avatar.tsx`, no `getAvatarLabe
 
 - **Inside a component's own folder**, a single file of a kind uses the generic name — `types.ts`, `constants.ts`, `utils.ts`, `mocks.ts` — because the folder already says what it belongs to. Once there's more than one file of a kind, they move into a kind folder and take descriptive names (see **Folder structure** below).
 - **Hooks are always named after the hook** (`use-filters.ts`), never a generic `hooks.ts`.
-- **Shared code** (types, utils/helpers, constants used by more than one component or feature) gets a specific, descriptive name — `get-label.ts`, `theme-options.ts`, `user.ts` — since there's no owning folder to give it context.
+- **Shared code** (types, utils/helpers, constants used by more than one component or feature) gets a specific, descriptive name — `get-label.ts`, `sort-options.ts`, `user.ts` — since there's no owning folder to give it context.
 
 ## Folder structure
 
@@ -256,14 +256,14 @@ Some `components/ui/` components are adapted from [shadcn/ui](https://ui.shadcn.
 
 ## Constants
 
-- **File**: a component's own constants go in its `constants.ts`; shared constants get a descriptive kebab-case file — `theme-options.ts`.
-- **Exported identifier**: `UPPER_SNAKE_CASE`, matching the constant's subject — `THEME_OPTIONS`.
+- **File**: a component's own constants go in its `constants.ts`; shared constants get a descriptive kebab-case file — `sort-options.ts`.
+- **Exported identifier**: `UPPER_SNAKE_CASE`, matching the constant's subject — `SORT_OPTIONS`.
 
 ```ts
-// theme-options.ts
-export const THEME_OPTIONS = {
-  light: "light",
-  dark: "dark",
+// sort-options.ts
+export const SORT_OPTIONS = {
+  priceAsc: "price-asc",
+  priceDesc: "price-desc",
 } as const;
 ```
 
@@ -298,6 +298,8 @@ If a dependency's API will be called from more than one place in the codebase, d
   A widget that needs genuinely separate server-only and client-only surfaces (e.g. one half importing `next/headers` or a server SDK, the other half marked `"use client"`) may split into `widgets/<name>/index.ts` (server-safe) and `widgets/<name>/client/index.ts` (client-only) instead of one barrel re-exporting both. `widgets/trpc/client` wraps both `@trpc/react-query` and `@tanstack/react-query` behind a single `trpc` proxy (`trpc.health.ping.useQuery()`) — app code imports `trpc` from `~/widgets/trpc/client`, never `@tanstack/react-query` directly. tRPC routers are named after their namespace (`health.ts`).
 
 - **UI dependency** (a chart library, a rich text editor, a map widget) → a component under `components/widgets/` following the normal one-folder-per-component + default-export rules, e.g. `components/widgets/chart/chart.tsx`, wrapping the vendor component behind this project's own props.
+- **Animation (`gsap`)** → `utils/motion/`. It registers the GSAP plugins in use (e.g. `ScrollTrigger`) once and re-exports `gsap` plus `useGSAP` (`@gsap/react`, which scopes and cleans up animations on unmount); components import from `~/utils/motion`, never from `gsap` directly. The motion tokens from `DESIGN.md` (durations, eases, stagger) live there as constants, and every timeline is built inside `gsap.matchMedia()` so `prefers-reduced-motion` is honored.
+- **3D (`three`)** → `components/widgets/<name>/`, e.g. `components/widgets/product-viewer/`. Everything touching WebGL is a client component loaded with `next/dynamic` and `ssr: false`, renders only while on screen, and disposes its geometries/materials/textures/renderer on unmount. It always ships a poster-image fallback (see `DESIGN.md` → **3D**). jsdom has no WebGL, so spec tests mock the scene and assert the DOM contract (poster, text alternative, controls); real rendering is exercised through the component's story in the browser (`pnpm test:storybook`).
 - **Icons** (`lucide-react`) → `components/icons/`, one file per icon (e.g. `components/icons/check.tsx` exporting `CheckIcon`), re-exported from `components/icons/index.ts`. Every icon takes the shared `IconProps` (`components/icons/icon-props.ts`) — a deliberately curated subset of lucide's props (`size`, `color`, `strokeWidth`, `className`, `aria-hidden`, `aria-label`), not a full SVG-attributes passthrough. Import icons from `~/components/icons`, never `lucide-react` directly.
 
 Rule of thumb: if grepping the codebase for the raw package name turns up more than one call site outside of `utils/`, `widgets/`, `components/widgets/`, or `components/icons/`, it should have been wrapped.
@@ -337,4 +339,5 @@ Rule of thumb: if grepping the codebase for the raw package name turns up more t
 
 These are flagged rather than decided — resolve and move them into the sections above once answered:
 
-_None right now._
+- **Vanilla `three` vs `@react-three/fiber` + `drei`** for the 3D widgets — neither is installed yet; decide before building the first viewer.
+- **3D asset pipeline:** where `.glb` models and their poster images are hosted, and which compression (Draco / Meshopt / KTX2) is required.
