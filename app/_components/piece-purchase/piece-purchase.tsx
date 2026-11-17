@@ -18,7 +18,8 @@ function PiecePurchase({
   idSuffix,
   className,
 }: PiecePurchaseProps) {
-  const [size, setSize] = useState<string | null>(null);
+  // The smallest size is preselected, so the piece can go to the cart at once.
+  const [size, setSize] = useState<string | null>(piece.sizes[0] ?? null);
   const picker = useRef<HTMLDivElement>(null);
   const { add } = useCart();
   const { success } = useToast();
@@ -48,8 +49,8 @@ function PiecePurchase({
   }
 
   return (
-    <div className={cn("flex flex-col gap-6", className)}>
-      <p className="text-xl font-normal tabular-nums">
+    <div className={cn("flex flex-col gap-3 md:gap-6", className)}>
+      <p className="text-lg font-normal tabular-nums md:text-xl">
         {formatPrice(piece.price)}
       </p>
       {piece.variants.length > 1 && (
@@ -71,7 +72,7 @@ function PiecePurchase({
         />
       </div>
       <Button
-        size="lg"
+        size="default"
         variant={size ? "primary" : "outline"}
         onClick={handleAdd}
         className="w-full sm:w-auto"

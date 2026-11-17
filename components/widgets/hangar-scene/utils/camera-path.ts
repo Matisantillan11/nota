@@ -27,9 +27,18 @@ export function getCameraStops(
 
   // Targets sit below the garment so it floats in the upper part of the
   // frame, inside the hatch, above the text dock.
+  // Short phones (wider aspect) get the camera pulled back in proportion, so
+  // the garment shrinks and the text below keeps its room.
+  const shortness = Math.max(1, aspect / 0.46);
+  // On short phones the text takes a larger share of the screen, so the
+  // garment also rises a little; zero on phones of ~19.5:9 and taller.
+  const lift = (shortness - 1) * 4;
   const hero: CameraStop = columns
     ? { position: [0, -0.4, 12.5], target: [0, -1.1, 0] }
-    : { position: [0, -0.9, 15], target: [0, -1.5, 0] };
+    : {
+        position: [0, -lift / 2, 15 * shortness],
+        target: [0, -0.6 * shortness - lift / 2, 0],
+      };
 
   // Two columns: keep the garment no wider than ~42% of the viewport, and
   // shift the camera so it lands on the left column's centre.
@@ -44,7 +53,11 @@ export function getCameraStops(
     const x = i % 2 === 0 ? shift : -shift;
     return columns
       ? { position: [x, 0, z + distance], target: [x, 0, z] }
-      : { position: [0, -2.75, z + 17], target: [0, -2.75, z] };
+      : {
+          // Low enough to sit just above the text, high enough to clear it.
+          position: [0, -2 * shortness - lift, z + 18.5 * shortness],
+          target: [0, -2 * shortness - lift, z],
+        };
   });
 
   const lastZ = -(pieceCount - 1) * PIECE_SPACING;

@@ -31,8 +31,11 @@ function DropHero({
             {drop.name}
             <StarMark />
           </h1>
-          <span aria-hidden="true" className="my-5 h-px w-24 bg-border" />
-          <p className="text-muted-foreground">
+          <span
+            aria-hidden="true"
+            className="my-3 h-px w-24 bg-border md:my-5"
+          />
+          <p className="text-sm text-muted-foreground md:text-base">
             Drop {drop.number} en vivo. {lead.name}.
           </p>
           <PiecePurchase
@@ -40,7 +43,7 @@ function DropHero({
             variantId={variantId}
             onVariantChange={onVariantChange}
             idSuffix="hero"
-            className="mt-6 w-full max-w-md items-center [&_fieldset]:items-center [&_legend]:sr-only"
+            className="mt-3 w-full max-w-md items-center md:mt-6 [&_fieldset]:items-center [&_legend]:sr-only"
           />
         </div>
       </div>

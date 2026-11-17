@@ -48,11 +48,11 @@ function PieceSection({
         >
           <h2
             id={`${piece.id}-title`}
-            className="text-4xl font-light tracking-[0.02em] md:text-5xl"
+            className="text-3xl font-light tracking-[0.02em] md:text-5xl"
           >
             {piece.name}
           </h2>
-          <p className="mt-4 max-w-[46ch] leading-relaxed text-muted-foreground">
+          <p className="mt-3 max-w-[46ch] text-sm leading-relaxed text-muted-foreground md:mt-4 md:text-base">
             {piece.description}
           </p>
           <PiecePurchase
@@ -60,7 +60,7 @@ function PieceSection({
             variantId={variantId}
             onVariantChange={onVariantChange}
             idSuffix="detail"
-            className="mt-6 w-full items-center md:mt-8 md:items-start [&_fieldset]:items-center md:[&_fieldset]:items-start"
+            className="mt-3 w-full items-center md:mt-8 md:items-start [&_fieldset]:items-center md:[&_fieldset]:items-start"
           />
         </div>
       </div>

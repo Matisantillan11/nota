@@ -62,23 +62,18 @@ describe("Home", () => {
     ).toBeGreaterThan(0);
   });
 
-  it("leads to the size picker until a size is chosen", async () => {
+  it("starts with size S selected, ready to add", async () => {
     const user = userEvent.setup();
     renderHome();
     const section = screen.getByRole("region", { name: "Remera Monochrome" });
 
-    await user.click(
-      within(section).getByRole("button", { name: "Elegí un talle" }),
-    );
-    expect(within(section).getByRole("radio", { name: "S" })).toHaveFocus();
-    expect(
-      screen.getByRole("button", { name: /carrito \(0\)/i }),
-    ).toBeInTheDocument();
-
-    await user.click(within(section).getByRole("radio", { name: "M" }));
+    expect(within(section).getByRole("radio", { name: "S" })).toBeChecked();
     expect(
       within(section).getByRole("button", { name: "Agregar al carrito" }),
     ).toBeEnabled();
+
+    await user.click(within(section).getByRole("radio", { name: "M" }));
+    expect(within(section).getByRole("radio", { name: "M" })).toBeChecked();
   });
 
   it("adds the piece to the cart and lists it there", async () => {
