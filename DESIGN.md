@@ -1,7 +1,7 @@
 ---
 version: alpha
 name: NOTA. - Immersive 3D apparel e-commerce
-description: NOTA. ("Espacio Creativo.") is a monochrome streetwear studio with a space/sci-fi imagination. The store is a dark-only void where each garment floats as a live three.js object, lit like a hologram. Neutral black-and-gray surfaces, a near-white foreground, and a single electric "signal" blue reserved for light and focus. Jost everywhere, thin rules and four-point star ornaments for structure, slow GSAP motion with the occasional glitch. Minimal, premium, clean.
+description: NOTA. ("Espacio Creativo.") is a monochrome streetwear studio with a space/sci-fi imagination. The store is a dark-only void where each garment floats as a live three.js object the visitor can turn. Neutral black-and-gray surfaces, a near-white foreground, and a single electric "signal" blue reserved for light and focus. Jost everywhere, thin rules and four-point star ornaments for structure, slow GSAP motion with the occasional glitch. Minimal, premium, clean.
 
 colors:
   background: "var(--color-background)"
@@ -127,7 +127,7 @@ Source: the brand's Instagram (`@nota__studio_`, 6 posts + highlights, reviewed 
 
 - **Dark only.** No light theme, no toggle. The floor is the hologram post's near-black (`#06060A`), never pure `#000000`.
 - **Monochrome UI.** Neutral grays with no tint; `{colors.primary}` is near-white. Emphasis comes from brightness.
-- **One light, `signal` blue.** Used as light (3D rim/hologram, glows, focus), never as a fill for buttons, badges or text blocks.
+- **One light, `signal` blue.** Used as light (focus rings, glows, small "live" indicators), never as a fill for buttons, badges or text blocks, and never on the garments themselves.
 - **One typeface: Jost** — light weights for large text, wide-tracked uppercase for small labels and titles.
 - **Thin rules + `✦` stars** instead of shadows or heavy containers.
 - **Products are 3D, always**, presented in a portal-like void.
@@ -166,7 +166,7 @@ All values live in `app/globals.css`: primitives and the semantic tokens that al
 ### Principles
 
 - **Neutral, not tinted.** Grays have no blue/warm cast — the brand is literally monochrome. The near-black floor's faint blue (`#06060A`) is the only exception, and it comes from the hologram post.
-- **Light is the accent.** Brighter = more important: `muted-foreground` → `foreground` → `primary` fill. `signal` marks things that are "lit" (focus, the active 3D object, a hologram/loading state), not things that are "important".
+- **Light is the accent.** Brighter = more important: `muted-foreground` → `foreground` → `primary` fill. `signal` marks things that are "lit" (focus, a live indicator), not things that are "important".
 - **`signal` stays rare.** If more than one or two things on screen glow blue, it's overused.
 - **Pure `#000` and `#FFF` are reserved for the logo.**
 - **Contrast:** `foreground` and `muted-foreground` on `background`/`card` must meet WCAG AA for their size. `muted-foreground` is for secondary copy only.
@@ -273,8 +273,8 @@ GSAP drives all animation (see `FOUNDATIONS.md` → **Wrapping third-party depen
 - **Animate `transform` and `opacity` only** (and three.js object/camera/material properties). Never animate layout properties.
 - **Typical entrance:** `opacity 0 → 1`, `y 24 → 0` (or `blur(8px) → 0`), `{motion.duration-base}`, `{motion.ease-default}`.
 - **Glitch is the signature transition** — a short (≤ 0.4s) RGB-split / slice displacement, used for reveals and color-variant changes (as in the brand's color-reveal post). At most one glitch per interaction; never on text the user is reading.
-- **Hologram is the signature loading state** — the garment drawn as `signal`-blue scanlines over the floor, resolving into the real material when loaded.
-- **Scroll is a camera, not a slideshow.** ScrollTrigger sequences move the 3D camera or the object through space; pin + scrub with `{motion.ease-inout}`.
+- **Scroll is a camera, and it's controlled.** Every gesture (wheel, swipe, arrow/page keys) moves exactly one section, starting immediately, in a 0.5s `power2.inOut` scroll; momentum and repeat events from the same gesture are ignored, so nothing moves after the user stops and nothing corrects itself afterwards. The camera is tied to that scroll, so a garment and its information arrive together, and only one garment is ever on screen.
+- **Product sections:** one column on phones (garment above, info below); from 768px two columns that alternate per piece (garment left / info right, then the reverse). Usage instructions live in one fixed line at the bottom, never inside product content.
 - **`prefers-reduced-motion` is mandatory:** wrap timelines in `gsap.matchMedia()`; under reduced motion use plain fades, no glitch, no scroll-scrubbed camera moves, no ambient drift or auto-rotate.
 
 ## 3D
@@ -283,11 +283,17 @@ Every product is shown as an interactive three.js object. The canvas is part of 
 
 - **One space:** the canvas is transparent or clears to `{colors.background}` — never a visible canvas edge or a different-colored stage.
 - **Portal staging:** garments float (no mannequin, no floor contact) inside a soft-lit void — a subtle receding frame/tunnel with vignette, as in the MONOCHROME renders. Portal grays come from the scene-only table above.
-- **Light:** a neutral key, a `signal`-blue rim to separate the garment from the floor, physically based materials with an environment map. Reflective details (e.g. the MONOCHROME reflective lines) should catch the light as the object turns — "stand out in the light and in the dark". `ACESFilmicToneMapping`, sRGB output.
-- **Interaction:** drag/touch to orbit with damping, no panning, clamped zoom. Slow idle auto-rotate that stops on interaction and resumes after a pause.
-- **Atmosphere:** sparse stars/particles or a faint scanline floor ring (from the hologram post) can add depth. It must never compete with the garment.
-- **Assets:** glTF binary (`.glb`) with compressed geometry/textures.
-- **Loading:** the hologram state (see **Motion**) or a still poster with the same framing, then cross-fade. Never a spinner on an empty void.
+- **Light:** a neutral key from the front and a neutral (white) back light that rims the garment so black fabric separates from the void. **No `signal`-blue light on garments** (brand decision): `signal` stays for focus and UI light. Reflective details should catch the light as the object turns.
+- **Interaction:** horizontal drag/touch turns the garment with damping (no panning, no zoom). When nobody touches it, it sways gently around its rest view and resumes after a pause. A short caption ("Arrastrá la prenda para girarla.") sits with the product copy.
+- **Atmosphere:** two layers of sparse stars at different depths, plus two quiet events, both neutral white and off under reduced motion:
+  - **Movement sparkles:** small ✦ that twinkle in and out while the camera travels between sections, in proportion to the distance moved (none at rest).
+  - **Shooting stars:** every 6–12 s, at random, 1–3 thin streaks cross the far background in one shared direction (never more than 3).
+  - Nothing may compete with the garment.
+- **Assets (MVP):** no 3D source files exist yet, so garments are built from the brand's renders, each raster with a provenance sidecar in `public/garments/`:
+  - **Shell** (tees): front and back renders matted and "inflated" from their silhouettes (depth + normal maps) into a 2.5D object that turns 360°. Front and back are exact; sides are an approximation.
+  - **Turntable** (hoodie): real frames of the MONOCHROME post's turn, scrubbed by the drag angle (±60°, mirrored for the other side). Only the published angles exist.
+  - Replace both with glTF binary (`.glb`) exports when the brand has them.
+- **Loading:** a still poster of the garment with the same framing until the scene is ready. Never a spinner on an empty void.
 - **Performance budget:** cap device pixel ratio at 2, render only while the canvas is on screen, pause when the tab is hidden, dispose geometries/materials/textures on unmount.
 - **Fallback:** without WebGL, show the poster image — purchasing must never depend on 3D working.
 - **Accessibility:** the canvas has a text alternative (product name + short description); every purchase action (size, color, add to cart) lives in regular DOM controls, never only inside the scene.

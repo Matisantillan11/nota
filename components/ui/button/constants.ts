@@ -37,7 +37,7 @@ export const buttonVariants = cva(
     compoundVariants: [
       // `link` stays `h-auto` — it hugs the text like an inline link rather
       // than taking on a fixed button height, regardless of `size`.
-      { variant: "link", class: "h-auto" },
+      { variant: "link", class: "h-auto px-0" },
     ],
     defaultVariants: {
       variant: "primary",

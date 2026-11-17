@@ -9,6 +9,8 @@ function Toaster({ className, toastOptions, ...props }: ToasterProps) {
     <SonnerToaster
       data-slot="toaster"
       theme="dark"
+      // Top: on phones the bottom edge is where the purchase CTA sits.
+      position="top-center"
       className={cn("toaster group", className)}
       toastOptions={{
         ...toastOptions,

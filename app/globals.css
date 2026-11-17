@@ -77,3 +77,15 @@ body {
   font-family: var(--font-sans);
   font-weight: 300;
 }
+
+/* Browser surfaces carry the palette too. */
+::selection {
+  background: var(--color-foreground);
+  color: var(--color-background);
+}
+
+html {
+  caret-color: var(--color-signal);
+  scrollbar-color: var(--color-accent) var(--color-background);
+  scrollbar-width: thin;
+}
