@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+/*
+ * Same group/scale structure as the reference theme (base, gray, error,
+ * warning, success, info, blue, aqua, icons, borders, text, blackTooltip —
+ * each color family running 50→900), but every value here is derived from
+ * Spar's actual brand, not the reference hexes:
+ *   - gray     -> a warm stone neutral (hue 28°, sat 18%) built from the
+ *                 site's real background/border/foreground tokens, not a
+ *                 cool blue-gray.
+ *   - error    -> the site's real destructive red (hue 0°, sat 72%),
+ *                 anchored at 500 = #D32222.
+ *   - warning  -> the site's real chart-4 gold (hue 42°, sat 80%),
+ *                 anchored at 500 = #E6A819.
+ *   - success/blue/aqua -> the site has no green/blue/teal tokens, so
+ *                 these are new hues chosen to read clearly as their
+ *                 semantic meaning while staying desaturated/muted enough
+ *                 to sit next to the warm primary instead of clashing.
+ *
+ * On top of that raw scale sits a shadcn-style semantic layer (background,
+ * foreground, card, primary, secondary, muted, accent, destructive, border,
+ * input, ring — each with a `-foreground` pair where text sits on top of a
+ * fill). Components are styled against these semantic names, never against
+ * a raw scale step directly, so retheming means editing the alias once
+ * here instead of hunting down every `bg-gray-900` in the codebase. Spar's
+ * brand black is the sole accent, anchored at `primary` = #000000 — there
+ * is no numbered `primary-50..900` ramp, since black is the floor of the
+ * lightness scale and a `primary/NN` opacity modifier (e.g. `bg-primary/10`)
+ * already covers every tint a numbered step would have given us.
+ */
+@theme {
+  /* Base */
+  --color-base-white: #ffffff;
+  --color-base-white-80: #ffffffcc;
+  --color-base-black: #000000;
+  --color-base-gray: #f9f7f6;
+  --color-base-skeleton: #f2f0ed;
+
+  /* Gray (warm stone neutral) */
+  --color-gray-50: #f9f7f6;
+  --color-gray-100: #f2f0ed;
+  --color-gray-200: #e8e3de;
+  --color-gray-300: #dbd3cc;
+  --color-gray-400: #c9bcb1;
+  --color-gray-500: #b2a090;
+  --color-gray-600: #967e69;
+  --color-gray-700: #756252;
+  --color-gray-800: #4b3f34;
+  --color-gray-900: #27211b;
+
+  /* Error */
+  --color-error-50: #fdf2f2;
+  --color-error-100: #fbe5e5;
+  --color-error-200: #f6c6c6;
+  --color-error-300: #ee9696;
+  --color-error-400: #e55d5d;
+  --color-error-500: #d32222;
+  --color-error-600: #af1d1d;
+  --color-error-700: #8c1717;
+  --color-error-800: #6e1212;
+  --color-error-900: #4f0d0d;
+
+  /* Warning */
+  --color-warning-50: #fdfaf1;
+  --color-warning-100: #fcf5e3;
+  --color-warning-200: #f8e8c3;
+  --color-warning-300: #f3d795;
+  --color-warning-400: #edc15a;
+  --color-warning-500: #e6a819;
+  --color-warning-600: #c18d15;
+  --color-warning-700: #9c7211;
+  --color-warning-800: #7c5b0e;
+  --color-warning-900: #5c430a;
+
+  /* Success (muted sage — new, no equivalent on the site) */
+  --color-success-50: #f0f9f5;
+  --color-success-100: #daf1e6;
+  --color-success-200: #b5e3cc;
+  --color-success-300: #81cfa8;
+  --color-success-400: #4ebc85;
+  --color-success-500: #389466;
+  --color-success-600: #2e7a54;
+  --color-success-700: #266445;
+  --color-success-800: #1d4e36;
+  --color-success-900: #163b29;
+
+  /* Blue (muted slate — new, no equivalent on the site) */
+  --color-blue-50: #f3f8fc;
+  --color-blue-100: #e3eff7;
+  --color-blue-200: #c4dcee;
+  --color-blue-300: #90bedf;
+  --color-blue-400: #61a2d1;
+  --color-blue-500: #398bc6;
+  --color-blue-600: #3178aa;
+  --color-blue-700: #28618a;
+  --color-blue-800: #204e6f;
+  --color-blue-900: #17384f;
+
+  /* Aqua (muted teal — new, no equivalent on the site) */
+  --color-aqua-50: #f1f9f8;
+  --color-aqua-100: #dff1f0;
+  --color-aqua-200: #bfe3e0;
+  --color-aqua-300: #90d0ca;
+  --color-aqua-400: #62bcb4;
+  --color-aqua-500: #46a49c;
+  --color-aqua-600: #3c8b85;
+  --color-aqua-700: #31726d;
+  --color-aqua-800: #26594b;
+  --color-aqua-900: #1c403d;
+
+  /* Info — sparse alias into the blue family, same relationship as the reference (info-100 = blue-800) */
+  --color-info-50: #f3f8fc;
+  --color-info-100: #204e6f;
+
+  /* Semantic: icons */
+  --color-icons-primary: #c9bcb1;
+
+  /* Semantic: borders */
+  --color-borders-primary: #dbd3cc;
+  --color-borders-secondary: #e8e3de;
+  --color-borders-tertiary: #f2f0ed;
+  --color-borders-disabled: #dbd3cc;
+  --color-borders-error: #ee9696;
+  --color-borders-error-solid: #af1d1d;
+  --color-borders-warning: #f3d795;
+  --color-borders-warning-solid: #c18d15;
+  --color-borders-success: #81cfa8;
+  --color-borders-success-solid: #2e7a54;
+  --color-borders-brand: #bfbfbf;
+  --color-borders-brand-solid: #262626;
+
+  /* Semantic: text */
+  --color-text-primary: #27211b;
+  --color-text-secondary: #756252;
+  --color-text-tertiary: #967e69;
+  --color-text-quaternary: #b2a090;
+  --color-text-white: #ffffff;
+  --color-text-disabled: #b2a090;
+  --color-text-error: #af1d1d;
+  --color-text-success: #2e7a54;
+  --color-text-android: #5d5e5f;
+
+  --color-black-tooltip: #1c1712;
+
+  /* Semantic: shadcn-style tokens (what components are styled against) */
+  --color-background: var(--color-base-white);
+  --color-foreground: var(--color-text-primary);
+  --color-card: var(--color-base-gray);
+  --color-card-foreground: var(--color-text-primary);
+  --color-primary: var(--color-base-black);
+  --color-primary-foreground: var(--color-text-white);
+  --color-secondary: var(--color-gray-100);
+  --color-secondary-foreground: var(--color-text-primary);
+  --color-muted: var(--color-gray-100);
+  --color-muted-foreground: var(--color-text-secondary);
+  --color-accent: var(--color-gray-200);
+  --color-accent-foreground: var(--color-text-primary);
+  --color-destructive: var(--color-error-500);
+  --color-destructive-foreground: var(--color-text-white);
+  --color-border: var(--color-borders-primary);
+  --color-input: var(--color-borders-primary);
+  --color-ring: var(--color-base-black);
+
+  /* Typography */
+  --font-sans:
+    var(--font-space-grotesk), var(--font-inter), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: Menlo, ui-monospace, monospace;
+
+  /* Radius */
+  --radius: 0.5rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+body {
+  background: var(--color-base-white);
+  color: var(--color-text-secondary);
+  font-family: var(--font-sans);
+}
