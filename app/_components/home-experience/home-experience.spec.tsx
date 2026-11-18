@@ -1,8 +1,9 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { LIVE_DROP, NEXT_DROP } from "~/app/_constants/drops";
+import { CartProvider } from "~/app/_contexts/cart";
 import HomeExperience from "./home-experience";
 
 // jsdom has no matchMedia, and GSAP's ScrollTrigger reads it at import time.
@@ -35,10 +36,17 @@ vi.mock("~/components/widgets/hangar-scene", () => ({
 }));
 
 function renderHome() {
-  return render(<HomeExperience drop={LIVE_DROP} nextDrop={NEXT_DROP} />);
+  return render(
+    <CartProvider>
+      <HomeExperience drop={LIVE_DROP} nextDrop={NEXT_DROP} />
+    </CartProvider>,
+  );
 }
 
 describe("Home", () => {
+  // The cart persists in localStorage; each test starts empty.
+  beforeEach(() => localStorage.clear());
+
   it("presents the live drop, each piece and the next drop", () => {
     renderHome();
 
@@ -93,8 +101,8 @@ describe("Home", () => {
     expect(within(sheet).getByText("Remera Monochrome")).toBeInTheDocument();
     expect(within(sheet).getByText("Blanca · Talle L")).toBeInTheDocument();
     expect(
-      within(sheet).getByRole("button", { name: "Finalizar compra" }),
-    ).toBeDisabled();
+      within(sheet).getByRole("link", { name: "Finalizar compra" }),
+    ).toBeInTheDocument();
   });
 
   it("offers the tee in both colourways and carries the choice to the cart", async () => {
@@ -120,5 +128,27 @@ describe("Home", () => {
     renderHome();
     const section = screen.getByRole("region", { name: "Hoodie Monochrome" });
     expect(within(section).queryByText("Color")).not.toBeInTheDocument();
+  });
+
+  it("sends the cart to the checkout page", async () => {
+    const user = userEvent.setup();
+    renderHome();
+    const section = screen.getByRole("region", { name: "Remera Monochrome" });
+    await user.click(
+      within(section).getByRole("button", { name: "Agregar al carrito" }),
+    );
+    await user.click(screen.getByRole("button", { name: /carrito \(1\)/i }));
+    expect(
+      await screen.findByRole("link", { name: "Finalizar compra" }),
+    ).toHaveAttribute("href", "/checkout");
+  });
+
+  it("does not let an empty cart go to checkout", async () => {
+    const user = userEvent.setup();
+    renderHome();
+    await user.click(screen.getByRole("button", { name: /carrito \(0\)/i }));
+    expect(
+      await screen.findByRole("button", { name: "Finalizar compra" }),
+    ).toBeDisabled();
   });
 });

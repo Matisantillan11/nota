@@ -85,13 +85,16 @@ function SiteHeader() {
               <span>A confirmar.</span>
             </div>
             <div className="button-mist">
-              <Button size="lg" disabled className="w-full">
-                Finalizar compra
-              </Button>
+              {items.length === 0 ? (
+                <Button size="lg" disabled className="w-full">
+                  Finalizar compra
+                </Button>
+              ) : (
+                <Button asChild size="lg" className="w-full">
+                  <Link href="/checkout">Finalizar compra</Link>
+                </Button>
+              )}
             </div>
-            <p className="text-center text-sm text-muted-foreground">
-              El pago se habilita pronto.
-            </p>
           </div>
         </div>
       </Sheet>

@@ -32,11 +32,11 @@ export function getCameraStops(
   const shortness = Math.max(1, aspect / 0.46);
   // On short phones the text takes a larger share of the screen, so the
   // garment also rises a little; zero on phones of ~19.5:9 and taller.
-  const lift = (shortness - 1) * 5.5;
+  const lift = (shortness - 1) * 3.5;
   const hero: CameraStop = columns
     ? { position: [0, -0.9, 14], target: [0, -1.8, 0] }
     : {
-        position: [0, -lift / 2, 15 * shortness],
+        position: [0, 0 - lift / 2, 15 * shortness],
         target: [0, -0.6 * shortness - lift / 2, 0],
       };
 
@@ -55,8 +55,8 @@ export function getCameraStops(
       ? { position: [x, 0, z + distance], target: [x, 0, z] }
       : {
           // Low enough to sit just above the text, high enough to clear it.
-          position: [0, -2 * shortness - lift, z + 18.5 * shortness],
-          target: [0, -2 * shortness - lift, z],
+          position: [0, -1.4 * shortness - lift, z + 14 * shortness],
+          target: [0, -1.4 * shortness - lift, z],
         };
   });
 
@@ -70,10 +70,11 @@ export function getCameraStops(
 }
 
 const smoothstep = (t: number) => t * t * (3 - 2 * t);
+// a(1-t) + bt lands exactly on b at t = 1 (a + (b-a)t can be off by an ulp).
 const lerp3 = (a: Vec3, b: Vec3, t: number): Vec3 => [
-  a[0] + (b[0] - a[0]) * t,
-  a[1] + (b[1] - a[1]) * t,
-  a[2] + (b[2] - a[2]) * t,
+  a[0] * (1 - t) + b[0] * t,
+  a[1] * (1 - t) + b[1] * t,
+  a[2] * (1 - t) + b[2] * t,
 ];
 
 // Progress 0 → 1 maps evenly onto the stops; each leg eases in and out so the

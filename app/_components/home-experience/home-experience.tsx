@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
 
-import { CartProvider } from "~/app/_contexts/cart";
 import {
   type TurnState,
   createTurnState,
@@ -151,7 +150,7 @@ function HomeExperience({ drop, nextDrop }: HomeExperienceProps) {
   );
 
   return (
-    <CartProvider>
+    <>
       <div className="fixed inset-0 z-0">
         <HangarScene
           garments={models}
@@ -196,7 +195,7 @@ function HomeExperience({ drop, nextDrop }: HomeExperienceProps) {
         />
       </main>
       <SiteFooter />
-    </CartProvider>
+    </>
   );
 }
 

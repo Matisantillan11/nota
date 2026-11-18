@@ -8,6 +8,7 @@ NOTA. ("Espacio Creativo.") is a space-inspired apparel studio that releases lim
 - **One section per gesture:** wheel, swipe or arrow keys move exactly one section; the camera flies to the next garment and only one is on screen at a time.
 - **Garments:** the brand's glTF models, turning 360° (drag to turn). The hoodie makes one turn with its lights off, then its reflective lines switch on; the tee's colour (Blanca / Negra) swaps with the same scan line.
 - **Liquid metal:** mercury-like chrome droplets around each garment, chrome display type and an electric pink accent.
+- **Checkout:** the order's folded garments drop one by one into a NOTA. shipping box that closes and floats, beside a liquid-glass order summary.
 - **Atmosphere:** layered starfield, backlit mist behind each garment, movement sparkles and occasional shooting stars. Everything respects `prefers-reduced-motion`.
 
 Prices, sizes and checkout are placeholders until the commerce backend exists (see `PRODUCT.md`).

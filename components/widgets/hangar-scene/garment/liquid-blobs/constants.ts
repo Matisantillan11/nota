@@ -25,3 +25,7 @@ export const CLUSTER_EXTENT = Math.max(
 export const COLUMN_MARGIN = 0.2;
 // Must match the scene camera's fov.
 export const FOV = 35;
+// Cluster scale on phones, where the garment is centred and framed close.
+export const PHONE_SCALE = 0.78;
+// World units off the camera axis beyond which a garment is in a side column.
+export const SIDE_COLUMN_OFFSET = 1;

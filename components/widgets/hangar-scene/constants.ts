@@ -58,3 +58,16 @@ export const SWAP_SECONDS = 1.1;
 export const TURN_SPEED = 1.5;
 // Turning this much (one full revolution) switches a lit state on.
 export const LIGHTS_ON_AFTER = Math.PI * 2;
+
+// Checkout: each garment's folded model, and the shipping box. Optimized from
+// assets-src/models with the rest (pnpm models:optimize).
+export const FOLDED_MODELS: Record<GarmentModelId, string> = {
+  "hoodie-monochrome": "/models/hoodie-folded.glb",
+  "tee-monochrome-white": "/models/tee-white-folded.glb",
+  "tee-monochrome-black": "/models/tee-black-folded.glb",
+};
+
+export const BOX_MODELS = {
+  open: "/models/box-open.glb",
+  closed: "/models/box-closed.glb",
+} as const;

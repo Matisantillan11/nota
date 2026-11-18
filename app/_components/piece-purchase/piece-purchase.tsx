@@ -30,11 +30,16 @@ function PiecePurchase({
       picker.current?.querySelector<HTMLInputElement>("input")?.focus();
       return;
     }
-    const variant =
-      piece.variants.length > 1
-        ? (piece.variants.find((v) => v.id === variantId)?.label ?? null)
-        : null;
-    add({ pieceId: piece.id, name: piece.name, size, variant });
+    const chosen =
+      piece.variants.find((v) => v.id === variantId) ?? piece.variants[0];
+    const variant = piece.variants.length > 1 ? chosen.label : null;
+    add({
+      pieceId: piece.id,
+      name: piece.name,
+      size,
+      variant,
+      model: chosen.model,
+    });
     success("Agregado al carrito.", {
       description: [piece.name, variant, `Talle ${size}`]
         .filter(Boolean)

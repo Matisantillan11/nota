@@ -6,8 +6,19 @@ import { useMemo, useRef } from "react";
 import { type Group, MeshPhysicalMaterial, Vector3 } from "three";
 
 import { GLSL_SIMPLEX_3D } from "../../utils/glsl-noise";
-import { TWO_COLUMN_MAX_WIDTH } from "../../utils/camera-path";
-import { BLOBS, CLUSTER_EXTENT, COLUMN_MARGIN, FOV, RIPPLE } from "./constants";
+import {
+  TWO_COLUMN_MAX_WIDTH,
+  TWO_COLUMN_MIN_WIDTH,
+} from "../../utils/camera-path";
+import {
+  BLOBS,
+  CLUSTER_EXTENT,
+  COLUMN_MARGIN,
+  FOV,
+  PHONE_SCALE,
+  RIPPLE,
+  SIDE_COLUMN_OFFSET,
+} from "./constants";
 import type { LiquidBlobsProps } from "./types";
 
 // Mirror chrome whose surface ripples like mercury. The vertex shader
@@ -96,10 +107,14 @@ function LiquidBlobs({ visibility, still }: LiquidBlobsProps) {
     const offset = origin.x - camera.position.x;
     const distance = Math.max(camera.position.z - origin.z, 1);
 
+    // Phones frame the garment close: a tighter cluster that clears the
+    // header. A centred garment on a wide screen (the hero) keeps full size.
+    // Only a garment clearly in a side column squeezes to it; a small
+    // threshold here made the hero's cluster flip size on the slightest move.
+    let squeeze = size.width < TWO_COLUMN_MIN_WIDTH ? PHONE_SCALE : 1;
     // In a side column, squeeze the cluster to the column's width so no
-    // droplet reaches the text; centred (phones) it keeps its full spread.
-    let squeeze = 1;
-    if (Math.abs(offset) > 0.1) {
+    // droplet reaches the text.
+    if (Math.abs(offset) > SIDE_COLUMN_OFFSET) {
       const visibleWidth =
         2 *
         distance *

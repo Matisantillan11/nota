@@ -52,7 +52,8 @@ function PieceSection({
           >
             {piece.name}
           </h2>
-          <p className="mt-3 max-w-[46ch] text-sm leading-relaxed text-muted-foreground md:mt-4 md:text-base">
+          {/* Phones give the garment the room; the description shows from tablet up. */}
+          <p className="mt-4 hidden max-w-[46ch] leading-relaxed text-muted-foreground md:block">
             {piece.description}
           </p>
           <PiecePurchase

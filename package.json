@@ -18,7 +18,7 @@
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
 		"chromatic": "chromatic --exit-zero-on-changes",
-		"models:optimize": "for f in monocrome-dark-tshirt:tee-black monocrome-white-tshirt:tee-white monocrome-hoodie-light-off:hoodie-off monocrome-hoodie-light-on:hoodie-on; do gltf-transform optimize assets-src/models/${f%%:*}.glb public/models/${f##*:}.glb --compress meshopt --texture-compress webp --texture-size 1024 --simplify true --simplify-ratio 0.12 --simplify-error 0.0008; done"
+		"models:optimize": "for f in monocrome-dark-tshirt:tee-black monocrome-white-tshirt:tee-white monocrome-hoodie-light-off:hoodie-off monocrome-hoodie-light-on:hoodie-on folded-monochromatic-black-tshirt:tee-black-folded folded-monochromatic-white-tshirt:tee-white-folded folded-monochromatic-hoodie:hoodie-folded open-shipping-box:box-open closed-shipping-box:box-closed; do gltf-transform optimize assets-src/models/${f%%:*}.glb public/models/${f##*:}.glb --compress meshopt --texture-compress webp --texture-size 1024 --simplify true --simplify-ratio 0.12 --simplify-error 0.0008; done"
 	},
 	"dependencies": {
 		"@gsap/react": "^2.1.2",
