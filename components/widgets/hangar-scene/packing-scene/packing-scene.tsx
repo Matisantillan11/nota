@@ -7,7 +7,16 @@
 import { Environment, Lightformer, Stars, useGLTF } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Suspense, useEffect, useMemo, useRef } from "react";
-import type { Group, Material, Mesh } from "three";
+import {
+  AdditiveBlending,
+  type Group,
+  type Material,
+  type Mesh,
+  type MeshBasicMaterial,
+  type Object3D,
+  Plane,
+  Vector3,
+} from "three";
 
 import {
   BOX_MODELS,
@@ -22,12 +31,12 @@ import {
   BOX_INNER,
   BOX_WIDTH,
   CAMERA,
-  CLOSING,
+  BOX_GEOMETRY,
   DROP_HEIGHT,
   PACKING,
+  SEAL,
 } from "./constants";
 import { useFittedModel } from "./fitted-model";
-import { BOX_GEOMETRY, makeFlapsFoldable } from "./flaps";
 import type { PackingSceneProps } from "./types";
 
 useGLTF.preload(BOX_MODELS.open);
@@ -44,6 +53,24 @@ const clamp01 = (t: number) => Math.min(Math.max(t, 0), 1);
 // Fit the box by width alone (generous depth keeps it from turning).
 const BOX_FIT = { width: BOX_WIDTH, depth: BOX_WIDTH };
 
+// Gives a model its own materials, clipped by the given plane. Idempotent:
+// React may run the caller's useMemo twice (dev), and a second clone would
+// leave the mesh on materials nobody clips.
+function clipModel(object: Object3D, plane: Plane): Material[] {
+  if (object.userData.clipped) return object.userData.clipped as Material[];
+  const list: Material[] = [];
+  object.traverse((child) => {
+    const mesh = child as Mesh;
+    if (!mesh.isMesh) return;
+    const material = (mesh.material as Material).clone();
+    material.clippingPlanes = [plane];
+    mesh.material = material;
+    list.push(material);
+  });
+  object.userData.clipped = list;
+  return list;
+}
+
 interface FoldedProps {
   src: string;
   footprint: { width: number; depth: number };
@@ -56,6 +83,8 @@ interface FoldedProps {
   clock: { current: number };
   /** True once the box has closed: garments are inside, never drawn. */
   sealed: { current: boolean };
+  /** The open box's clip: garments vanish with it, under the scan line. */
+  clip: Plane;
 }
 
 // One folded garment: waits, falls into the box, settles on the stack.
@@ -69,8 +98,10 @@ function Folded({
   turn,
   clock,
   sealed,
+  clip,
 }: FoldedProps) {
   const { object, size } = useFittedModel(src, footprint);
+  useMemo(() => clipModel(object, clip), [object, clip]);
   const group = useRef<Group>(null);
 
   useEffect(() => {
@@ -127,26 +158,22 @@ function BoxContents({ garments, reducedMotion, onPacked }: BoxContentsProps) {
     };
   }, [open.size.x]);
 
-  const flaps = useMemo(
-    () => makeFlapsFoldable(open.object.children[0]),
-    [open.object],
+  // The scan swap: world-space planes at the scan line's height. The open
+  // box keeps what is above it, the closed box what is below.
+  const planes = useMemo(
+    () => ({
+      open: new Plane(new Vector3(0, 1, 0), 0),
+      closed: new Plane(new Vector3(0, -1, 0), 0),
+    }),
+    [],
   );
-  const closedMaterials = useMemo(() => {
-    // Idempotent for the same reason as makeFlapsFoldable.
-    if (closed.object.userData.fading)
-      return closed.object.userData.fading as Material[];
-    const list: Material[] = [];
-    closed.object.traverse((child) => {
-      const mesh = child as Mesh;
-      if (!mesh.isMesh) return;
-      const material = (mesh.material as Material).clone();
-      material.transparent = true;
-      mesh.material = material;
-      list.push(material);
-    });
-    closed.object.userData.fading = list;
-    return list;
-  }, [closed.object]);
+  useMemo(() => clipModel(open.object, planes.open), [open.object, planes]);
+  useMemo(
+    () => clipModel(closed.object, planes.closed),
+    [closed.object, planes],
+  );
+  const band = useRef<Mesh>(null);
+  const bandMaterial = useRef<MeshBasicMaterial>(null);
 
   const footprint = useMemo(
     () => ({
@@ -171,34 +198,35 @@ function BoxContents({ garments, reducedMotion, onPacked }: BoxContentsProps) {
     Math.max(garments.length - 1, 0) * PACKING.gap +
     PACKING.fall +
     PACKING.settle +
-    PACKING.closeAfter;
-  const done = CLOSING.crossfade[1];
+    SEAL.delay;
+  const done = closeAt + SEAL.scan;
+  // The scan runs a little past the box at both ends, like on the garments.
+  const scanFrom = -0.1;
+  const scanTo = open.size.y + 0.1;
 
   useFrame(({ clock: three }, delta) => {
-    clock.current = reducedMotion ? closeAt + done : clock.current + delta;
-    const t = clock.current - closeAt;
-    const phase = ([from, to]: readonly [number, number]) =>
-      easeInOut(clamp01((t - from) / (to - from)));
+    clock.current = reducedMotion ? done : clock.current + delta;
+    const progress = clamp01((clock.current - closeAt) / SEAL.scan);
+    const floatY = float.current?.position.y ?? 0;
+    const cut = floatY + scanFrom + (scanTo - scanFrom) * easeInOut(progress);
+    planes.open.constant = -cut;
+    planes.closed.constant = cut;
+    open.object.visible = progress < 1;
+    if (closedRef.current) closedRef.current.visible = progress > 0;
+    sealed.current = progress >= 1;
+    if (band.current && bandMaterial.current) {
+      band.current.visible = progress > 0 && progress < 1;
+      band.current.position.y = cut;
+      bandMaterial.current.opacity = Math.sin(progress * Math.PI);
+    }
 
-    // Flaps fold one by one (sides, then back), like a real box.
-    flaps.uniforms.uLeft.value = phase(CLOSING.left);
-    flaps.uniforms.uRight.value = phase(CLOSING.right);
-    flaps.uniforms.uBack.value = phase(CLOSING.back);
-
-    // Then the folded box hands over to the closed model with a fade.
-    const fade = phase(CLOSING.crossfade);
-    sealed.current = fade > 0;
-    flaps.materials.forEach((m) => (m.opacity = 1 - fade));
-    closedMaterials.forEach((m) => (m.opacity = fade));
-    open.object.visible = fade < 1;
-    if (closedRef.current) closedRef.current.visible = fade > 0;
-
+    const t = clock.current;
     if (!packed.current && t >= done) {
       packed.current = true;
       onPacked?.();
     }
     // The box floats in zero g and turns the whole time: garments drop in
-    // and the flaps close while it turns.
+    // and it closes while it turns.
     if (float.current && !reducedMotion) {
       float.current.position.y = Math.sin(three.elapsedTime * 0.9) * 0.08;
       float.current.rotation.y += delta * TURN_SPEED;
@@ -242,11 +270,26 @@ function BoxContents({ garments, reducedMotion, onPacked }: BoxContentsProps) {
                 turn={(i % 2 === 0 ? 1 : -1) * 0.6}
                 clock={clock}
                 sealed={sealed}
+                clip={planes.open}
               />
             ))}
           </group>
         </group>
       </group>
+      {/* The scan line: a thin light that sweeps up across the box. */}
+      <mesh ref={band} visible={false} renderOrder={10}>
+        <planeGeometry args={[BOX_WIDTH * 1.15, 0.012]} />
+        <meshBasicMaterial
+          ref={bandMaterial}
+          color="#ffffff"
+          transparent
+          opacity={0}
+          blending={AdditiveBlending}
+          depthTest={false}
+          depthWrite={false}
+          toneMapped={false}
+        />
+      </mesh>
     </>
   );
 }
@@ -261,7 +304,7 @@ function CameraFrame() {
 }
 
 // The packing moment at checkout: an open box floats in space, each folded
-// garment drops in, then the box closes.
+// garment drops in, then a scan line swaps it for the closed box.
 function PackingScene({
   garments,
   reducedMotion,
@@ -274,6 +317,9 @@ function PackingScene({
       aria-label={label}
       dpr={[1, MAX_DPR]}
       camera={{ fov: CAMERA.fov, position: CAMERA.position }}
+      onCreated={({ gl }) => {
+        gl.localClippingEnabled = true;
+      }}
       fallback={
         <p className="grid size-full place-items-center px-6 text-center text-sm text-muted-foreground">
           Tu navegador no puede mostrar el empaquetado en 3D.
