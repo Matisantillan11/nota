@@ -21,12 +21,13 @@ export const STREAK_VERTEX = /* glsl */ `
 // Tail (uv.x = 0) to bright head (uv.x = 1), thin across, faded by uFade.
 export const STREAK_FRAGMENT = /* glsl */ `
   uniform float uFade;
+  uniform vec3 uColor;
   varying vec2 vUv;
   void main() {
     float along = pow(vUv.x, 2.2);
     float across = 1.0 - abs(vUv.y * 2.0 - 1.0);
     // Bright core line with a soft falloff across, so it reads at 1-3px.
     float alpha = along * smoothstep(0.0, 1.0, across) * uFade;
-    gl_FragColor = vec4(vec3(0.97), alpha);
+    gl_FragColor = vec4(uColor, alpha);
   }
 `;

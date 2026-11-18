@@ -19,6 +19,20 @@ primary_target: "app/page.tsx"
 related_targets: []
 ---
 
+---
+version: 1
+slug: "app-page-tsx"
+primary_target: "app/page.tsx"
+related_targets: []
+---
+
+---
+version: 1
+slug: "app-page-tsx"
+primary_target: "app/page.tsx"
+related_targets: []
+---
+
 # Home (`/`)
 
 Mode: Persuade. Audience: NOTA. followers arriving from Instagram on a phone, wanting a piece from the live drop before it sells out. Action: buy (add to cart) a live-drop garment. Proof: the garment itself, inspectable in 3D; no invented claims, prices are placeholders until real ones exist.
@@ -27,7 +41,7 @@ Mode: Persuade. Audience: NOTA. followers arriving from Instagram on a phone, wa
 
 THESIS: The home is a ship's hatch opening onto zero gravity: the live drop's garments float in deep space and you buy them there. It refuses the category default of hero banner + product grid.
 
-OWN-WORLD: Near-black void (#06060a) with layered depth starfield, a hairline hatch/portal frame, garments as lit 3D objects the visitor can turn, rimmed by a neutral back light (no blue on garments, per the brand), Jost light display with tracked uppercase UI labels (no eyebrow above headings), capsule CTA that goes from hairline "Elegí un talle" to near-white "Agregar al carrito", thin centered rules and ✦. No cards, no shadows.
+OWN-WORLD: Liquid metal in deep space: near-black void (#06060a) with a layered starfield and pink floor mist; garments under neutral light with pink backlit mist and mercury-like chrome droplets around them; chrome display type framed by white ✦; one electric pink (#ff2bd6) for light, focus and a pink capsule CTA; Jost light/uppercase UI; thin rules. No cards, no shadows.
 
 STORY: Visitor lands inside the hatch, sees the live drop floating, understands "Drop 01 · Live", can buy immediately; scrolling flies the camera through the drop piece by piece (each with price, sizes, add), then the next drop is announced (Drop 01 is the first drop: there are no past drops yet; sold-out pieces will read "not available.").
 

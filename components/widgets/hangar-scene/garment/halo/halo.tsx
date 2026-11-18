@@ -4,7 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { AdditiveBlending, Color, type ShaderMaterial } from "three";
 
-import { GARMENT_HEIGHT, HALO_COLOR, HALO_SIZE } from "../../constants";
+import { GARMENT_HEIGHT, HALO_SIZE } from "../../constants";
 import { GLSL_NOISE } from "../../utils/glsl-noise";
 import type { HaloProps } from "./types";
 
@@ -49,12 +49,13 @@ const FRAGMENT = /* glsl */ `
 // Backlit mist behind a garment, like the decontamination fog of an airlock:
 // it separates dark fabric from the void. Sits behind the garment and
 // doesn't turn with it.
-function Halo({ strength, visibility, still }: HaloProps) {
+function Halo({ strength, visibility, color, still }: HaloProps) {
   const material = useRef<ShaderMaterial>(null);
 
   useFrame(({ clock }) => {
     if (!material.current) return;
     if (!still) material.current.uniforms.uTime.value = clock.elapsedTime;
+    (material.current.uniforms.uColor.value as Color).set(color);
     const shown = (visibility.current ?? 0) * strength;
     material.current.uniforms.uStrength.value = shown;
     material.current.visible = shown > 0.005;
@@ -69,7 +70,7 @@ function Halo({ strength, visibility, still }: HaloProps) {
         vertexShader={VERTEX}
         fragmentShader={FRAGMENT}
         uniforms={{
-          uColor: { value: new Color(HALO_COLOR) },
+          uColor: { value: new Color(color) },
           uStrength: { value: 0 },
           uTime: { value: 0 },
         }}

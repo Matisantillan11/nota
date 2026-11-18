@@ -32,9 +32,9 @@ export function getCameraStops(
   const shortness = Math.max(1, aspect / 0.46);
   // On short phones the text takes a larger share of the screen, so the
   // garment also rises a little; zero on phones of ~19.5:9 and taller.
-  const lift = (shortness - 1) * 4;
+  const lift = (shortness - 1) * 5.5;
   const hero: CameraStop = columns
-    ? { position: [0, -0.4, 12.5], target: [0, -1.1, 0] }
+    ? { position: [0, -0.9, 14], target: [0, -1.8, 0] }
     : {
         position: [0, -lift / 2, 15 * shortness],
         target: [0, -0.6 * shortness - lift / 2, 0],

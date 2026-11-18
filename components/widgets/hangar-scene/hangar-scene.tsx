@@ -17,6 +17,7 @@ import {
   MIN_DPR,
   PIECE_SPACING,
   SCENE_BACKGROUND,
+  LIGHT_COLORS,
 } from "./constants";
 import Garment from "./garment";
 import ShootingStars from "./shooting-stars";
@@ -86,6 +87,22 @@ function HangarScene({
           position={[5, 1, -4]}
           scale={[2, 8, 1]}
         />
+        {/* Pink and violet strips for the chrome to mirror. */}
+
+        <Lightformer
+          form="rect"
+          intensity={4}
+          color={LIGHT_COLORS.reflection}
+          position={[-6, 1, -2]}
+          scale={[1.5, 10, 1]}
+        />
+        <Lightformer
+          form="ring"
+          intensity={3}
+          color={LIGHT_COLORS.violet}
+          position={[4, -3, 3]}
+          scale={3}
+        />
       </Environment>
 
       {/* Two star layers at different depths give parallax as the camera flies. */}
@@ -108,8 +125,8 @@ function HangarScene({
         speed={reducedMotion ? 0 : 0.3}
       />
 
-      <ShootingStars reducedMotion={reducedMotion} />
-      <Sparkles reducedMotion={reducedMotion} />
+      <ShootingStars reducedMotion={reducedMotion} color={LIGHT_COLORS.spark} />
+      <Sparkles reducedMotion={reducedMotion} color={LIGHT_COLORS.spark} />
 
       <Suspense fallback={null}>
         {garments.map((model, i) => (
@@ -128,7 +145,11 @@ function HangarScene({
         ))}
       </Suspense>
 
-      <DeconMist revealed={revealed} reducedMotion={reducedMotion} />
+      <DeconMist
+        revealed={revealed}
+        reducedMotion={reducedMotion}
+        color={LIGHT_COLORS.mist}
+      />
 
       <CameraRig
         pieceCount={garments.length}

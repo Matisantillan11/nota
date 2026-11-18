@@ -4,7 +4,6 @@ import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { Color, type Group, type ShaderMaterial } from "three";
 
-import { HALO_COLOR } from "../constants";
 import { GLSL_NOISE } from "../utils/glsl-noise";
 import { MIST_DELAY, MIST_DEPTH, MIST_SECONDS } from "./constants";
 import type { DeconMistProps } from "./types";
@@ -39,14 +38,15 @@ const FRAGMENT = /* glsl */ `
     vec2 q = vec2(p.x * 1.2 + uTime * 0.05 * sign(p.x), vUv.y * 3.0 - uTime * 0.12);
     float wisps = fbm(q * 2.2 + fbm(q * 1.3) * 1.2);
     float density = height * sides * (0.45 + 0.75 * smoothstep(0.3, 0.9, wisps));
-    float fade = smoothstep(0.0, 0.12, uProgress) * (1.0 - smoothstep(0.45, 1.0, uProgress));
+    // Rolls in, then settles to a resting floor mist that stays.
+    float fade = smoothstep(0.0, 0.12, uProgress) * mix(1.0, 0.7, smoothstep(0.45, 1.0, uProgress));
     gl_FragColor = vec4(uColor, density * fade * 0.3);
   }
 `;
 
-// A one-off burst of mist across the screen as the hatch opens. Rides with
-// the camera, in front of everything, and is gone after MIST_SECONDS.
-function DeconMist({ revealed, reducedMotion }: DeconMistProps) {
+// Floor mist that rolls out as the hatch opens and then stays, drifting,
+// for the rest of the visit. Rides with the camera, in front of everything.
+function DeconMist({ revealed, reducedMotion, color }: DeconMistProps) {
   const group = useRef<Group>(null);
   const material = useRef<ShaderMaterial>(null);
   const start = useRef<number | null>(null);
@@ -60,8 +60,12 @@ function DeconMist({ revealed, reducedMotion }: DeconMistProps) {
       return;
     }
     start.current ??= clock.elapsedTime + MIST_DELAY;
-    const progress = (clock.elapsedTime - start.current) / MIST_SECONDS;
-    layer.visible = progress >= 0 && progress <= 1;
+    // Holds at 1 once the roll-out is done; the noise keeps it moving.
+    const progress = Math.min(
+      (clock.elapsedTime - start.current) / MIST_SECONDS,
+      1,
+    );
+    layer.visible = progress >= 0;
     if (!layer.visible) return;
 
     layer.position.copy(camera.position);
@@ -84,7 +88,7 @@ function DeconMist({ revealed, reducedMotion }: DeconMistProps) {
           vertexShader={VERTEX}
           fragmentShader={FRAGMENT}
           uniforms={{
-            uColor: { value: new Color(HALO_COLOR) },
+            uColor: { value: new Color(color) },
             uProgress: { value: 0 },
             uTime: { value: 0 },
             uAspect: { value: 1 },

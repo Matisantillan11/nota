@@ -15,7 +15,7 @@ export const GARMENT_MODELS: Record<GarmentModelId, GarmentModel> = {
 };
 
 // World-space height of every garment.
-export const GARMENT_HEIGHT = 3;
+export const GARMENT_HEIGHT = 3.45;
 
 // Mirrors app/globals.css `background` — three can't read CSS vars.
 export const SCENE_BACKGROUND = "#06060a";
@@ -32,15 +32,24 @@ export const DRAG_SENSITIVITY = 0.012;
 // Garment visibility by distance to its camera stop, in stops: fully shown
 // within `hold`, gone by `gone` — so two pieces are never on screen together.
 export const STOP_FADE = { hold: 0.1, gone: 0.42 } as const;
+// The mist behind a garment fades over a much wider window: full until the
+// halfway point between stops, so between two pieces both mists are present
+// and the scene is never left without one.
+export const MIST_FADE = { hold: 0.5, gone: 1 } as const;
 
 // Pixel ratio ceiling; drops to MIN_DPR when the device can't hold the frame rate.
 export const MAX_DPR = 1.5;
 export const MIN_DPR = 1;
 
-// Soft light behind each garment: neutral, a touch cool, never the signal
-// blue (no colour on garments). Size relative to the garment's height.
-export const HALO_COLOR = "#e9eef5";
-// Room for the uneven outline to drift without touching the quad's edge.
+// Light colours of the scene's atmosphere: electric pink spent on light
+// (mist, sparkles, reflections). Garments keep their own neutral light.
+export const LIGHT_COLORS = {
+  mist: "#ff2bd6",
+  spark: "#ff8be8",
+  reflection: "#ff2bd6",
+  violet: "#7a2bff",
+} as const;
+
 export const HALO_SIZE = 2;
 
 // Scan wipe between two states of a garment (colour swap, lights on).

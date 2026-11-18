@@ -1,7 +1,7 @@
 ---
 version: alpha
 name: NOTA. - Immersive 3D apparel e-commerce
-description: NOTA. ("Espacio Creativo.") is a monochrome streetwear studio with a space/sci-fi imagination. The store is a dark-only void where each garment floats as a live three.js object the visitor can turn. Neutral black-and-gray surfaces, a near-white foreground, and a single electric "signal" blue reserved for light and focus. Jost everywhere, thin rules and four-point star ornaments for structure, slow GSAP motion with the occasional glitch. Minimal, premium, clean.
+description: NOTA. ("Espacio Creativo.") is a streetwear studio with a space/sci-fi imagination. The store is a dark-only void where each garment floats as a live three.js object the visitor can turn, surrounded by mercury-like chrome droplets. Near-black surfaces, a near-white foreground, chrome display type, and one electric pink ("signal", #FF2BD6) spent on light, focus and the primary action. Jost everywhere, four-point stars, slow GSAP motion. Electric, premium, clean.
 
 colors:
   background: "var(--color-background)"
@@ -104,72 +104,73 @@ components:
 
 ## Overview
 
-NOTA. is a small apparel studio (tees, hoodies) whose bio is just "Espacio Creativo." — and "espacio" is taken literally: the brand's imagery is garments floating in voids, holograms, neon nightlife and glitches. The store continues that: the page is not a white sheet with product photos, it's a dark space where every garment is a real three.js object the user can turn, inspect and approach. The UI is the thinnest possible layer on top: type, thin rules and light.
+NOTA. is a small apparel studio (tees, hoodies) whose bio is just "Espacio Creativo." — and "espacio" is taken literally: the brand's imagery is garments floating in voids, holograms, neon nightlife and glitches. The store continues that: the page is not a white sheet with product photos, it's a dark space where every garment is a real three.js object the user can turn, inspect and approach. The UI is a thin layer on top: type, thin rules, chrome and light.
 
-Three words decide every call: **minimal, premium, clean**. When in doubt, remove.
+The world is **liquid metal**: mirror chrome that ripples like mercury, and one electric pink that lights it. Three words decide every call: **electric, premium, clean**. Chrome and pink are spent where they carry meaning (the drop title, the primary action, the light around a garment), never as decoration on everything.
 
 ### Brand analysis
 
 Source: the brand's Instagram (`@nota__studio_`, 6 posts + highlights, reviewed 2026-11-17).
 
-| Observed                                                                                                                                                | What it means for the site                                                                                          |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| Logo `NOTA.` — uppercase geometric sans, light/regular weight, white on a solid black circle                                                            | Jost is the right (and only) typeface. The period is part of the identity.                                          |
-| The first collection is literally called **MONOCHROME**: black/white hoodie with reflective lines, "designed to stand out in the light and in the dark" | The UI palette is strictly neutral (black → gray → white). Contrast between light and dark is the main design move. |
-| 3D renders: a garment floating inside a soft gray tunnel/portal, vignette, film grain                                                                   | Products live in a "portal" — a soft-lit void with depth, never a flat card with a photo.                           |
-| An electric-blue scanline **hologram** of a tee over a near-black navy floor                                                                            | The one brand hue is a light, not a paint: `signal` blue, for glow, 3D lighting and focus only.                     |
-| An RGB-split **glitch** on a tee render (magenta/green fringes) during a color reveal                                                                   | Glitch is an allowed transition effect (reveals, variant changes), used sparingly.                                  |
-| Nightlife photography: DJ booths, violet neon, flash B&W portraits, sunglasses                                                                          | Editorial/lifestyle photography can carry color (violet neon); the UI never does.                                   |
-| Posts are framed by thin outer lines, short centered horizontal rules and `✦` four-point stars around uppercase titles                                  | Thin rules and the `✦` ornament are the structural motifs — not boxes or shadows.                                   |
-| Copy is short, Spanish, and ends with a period: "NOTA.", "Espacio Creativo.", "Social.", and the sign-off **"not available."**                          | Voice: terse, declarative, lowercase sign-offs with a period. "not available." is the brand's tagline.              |
+| Observed                                                                                                                                                | What it means for the site                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Logo `NOTA.` — uppercase geometric sans, light/regular weight, white on a solid black circle                                                            | Jost is the right (and only) typeface. The period is part of the identity.                                              |
+| The first collection is literally called **MONOCHROME**: black/white hoodie with reflective lines, "designed to stand out in the light and in the dark" | The garments stay black and white, under neutral light; the colour lives in the world around them (pink light, chrome). |
+| 3D renders: a garment floating inside a soft gray tunnel/portal, vignette, film grain                                                                   | Products live in a "portal" — a soft-lit void with depth, never a flat card with a photo.                               |
+| An electric-blue scanline **hologram** of a tee over a near-black navy floor                                                                            | Light is the accent. The store's light is electric pink (`signal`), a later brand decision that replaced the blue.      |
+| An RGB-split **glitch** on a tee render (magenta/green fringes) during a color reveal                                                                   | State changes use a light scan line instead (colour swap, lights on).                                                   |
+| Nightlife photography: DJ booths, violet neon, flash B&W portraits, sunglasses                                                                          | Editorial/lifestyle photography can carry color (violet neon); the UI never does.                                       |
+| Posts are framed by thin outer lines, short centered horizontal rules and `✦` four-point stars around uppercase titles                                  | Thin rules and the `✦` ornament are the structural motifs — not boxes or shadows.                                       |
+| Copy is short, Spanish, and ends with a period: "NOTA.", "Espacio Creativo.", "Social.", and the sign-off **"not available."**                          | Voice: terse, declarative, lowercase sign-offs with a period. "not available." is the brand's tagline.                  |
 
 **Key Characteristics:**
 
-- **Dark only.** No light theme, no toggle. The floor is the hologram post's near-black (`#06060A`), never pure `#000000`.
-- **Monochrome UI.** Neutral grays with no tint; `{colors.primary}` is near-white. Emphasis comes from brightness.
-- **One light, `signal` blue.** Used as light (focus rings, glows, small "live" indicators), never as a fill for buttons, badges or text blocks, and never on the garments themselves.
-- **One typeface: Jost** — light weights for large text, wide-tracked uppercase for small labels and titles.
+- **Dark only.** No light theme, no toggle. The floor is near-black (`#06060A`), never pure `#000000`.
+- **Liquid metal.** Mirror chrome droplets ripple like mercury around each garment; the drop title is set in chrome.
+- **One accent, electric pink (`signal`, `#FF2BD6`).** It carries light (mist, sparkles, laser, reflections), focus, and the primary action (a pink capsule). Never on the garments themselves.
+- **Neutral UI underneath.** Grays have no tint; body text is near-white and gray.
+- **One typeface: Jost** — light weights for large text, wide-tracked uppercase for small labels.
 - **Thin rules + `✦` stars** instead of shadows or heavy containers.
-- **Products are 3D, always**, presented in a portal-like void.
-- **Motion is slow and weightless** (GSAP), with glitch as the one sharp exception.
-
-> **Status:** tokens (`app/globals.css`), Jost and dark-only mode are applied, and `components/ui` is restyled to this spec. Still pending: logo vector, motion/3D widgets (`gsap` wrapper, `three` viewer).
+- **Products are 3D, always**, floating in the void with pink mist behind them.
+- **Motion is slow and weightless** (GSAP).
 
 ## Colors
 
-All values live in `app/globals.css`: primitives and the semantic tokens that alias them, both in `@theme`. Components use the semantic names only, never primitives or raw hex values. There is a single palette — no `.dark` variant, because dark is the only mode. Hex values were sampled from the brand's posts where noted.
+All values live in `app/globals.css`: primitives and the semantic tokens that alias them, both in `@theme`. Components use the semantic names only, never primitives or raw hex values. There is a single palette — no `.dark` variant, because dark is the only mode.
 
-| Token                                             | Value                     | Source / use                                                                   |
-| ------------------------------------------------- | ------------------------- | ------------------------------------------------------------------------------ |
-| `background`                                      | `#06060A`                 | Sampled from the hologram post's floor. Page floor / scene backdrop            |
-| `card`                                            | `#0E0E11`                 | Cards, popovers, panels                                                        |
-| `secondary` / `muted`                             | `#16161A`                 | Secondary fills, muted panels, tooltips                                        |
-| `accent`                                          | `#1F1F23`                 | Hover/highlight states                                                         |
-| `border` / `input`                                | `rgb(242 242 242 / 0.10)` | Every structural hairline and input border                                     |
-| `foreground` / `card-foreground` / `*-foreground` | `#F2F2F2`                 | Headings and body — the logo's white, softened                                 |
-| `muted-foreground`                                | `#8A8A8A`                 | Sampled from the MONOCHROME renders' mid-gray. Secondary copy, captions        |
-| `primary`                                         | `#F2F2F2`                 | Primary action, active state                                                   |
-| `primary-foreground`                              | `#06060A`                 | Text on primary                                                                |
-| `signal`                                          | `#1E90FF`                 | Hologram blue (sampled halo `#1370BD`, brightened to its core). Glow, 3D light |
-| `ring`                                            | `#1E90FF`                 | Focus ring = `signal`                                                          |
-| `destructive`                                     | `#E5484D`                 | Destructive actions/states, form errors                                        |
-| `destructive-foreground`                          | `#F2F2F2`                 | Text on destructive                                                            |
+| Token                                             | Value                     | Source / use                                                     |
+| ------------------------------------------------- | ------------------------- | ---------------------------------------------------------------- |
+| `background`                                      | `#06060A`                 | Page floor / scene backdrop                                      |
+| `card`                                            | `#0E0E11`                 | Cards, popovers, panels                                          |
+| `secondary` / `muted`                             | `#16161A`                 | Secondary fills, muted panels, tooltips                          |
+| `accent`                                          | `#1F1F23`                 | Hover/highlight states                                           |
+| `border` / `input`                                | `rgb(242 242 242 / 0.10)` | Every structural hairline and input border                       |
+| `foreground` / `card-foreground` / `*-foreground` | `#F2F2F2`                 | Headings and body — the logo's white, softened                   |
+| `muted-foreground`                                | `#8A8A8A`                 | Secondary copy, captions                                         |
+| `primary`                                         | `#FF2BD6`                 | Primary action (pink capsule), active state                      |
+| `primary-foreground`                              | `#06060A`                 | Text on primary                                                  |
+| `signal`                                          | `#FF2BD6`                 | Electric pink. Light (glow, laser, mist), focus, live indicators |
+| `ring`                                            | `#FF2BD6`                 | Focus ring = `signal`                                            |
+| `destructive`                                     | `#E5484D`                 | Destructive actions/states, form errors                          |
+| `destructive-foreground`                          | `#F2F2F2`                 | Text on destructive                                              |
 
-**Scene-only colors** (3D lights, photography, effects — never UI tokens):
+**Scene-only colors** (3D lights and effects — never UI tokens; `LIGHT_COLORS` in `components/widgets/hangar-scene/constants.ts`):
 
-| Name           | Value                 | Source / use                                                       |
-| -------------- | --------------------- | ------------------------------------------------------------------ |
-| Neon violet    | `#8819D4`             | Sampled from the DJ post. Secondary/fill light in nightlife scenes |
-| Glitch fringes | magenta + green split | The tee color-reveal post. Only inside the glitch effect           |
-| Portal grays   | `#727272` → `#B4B4B4` | MONOCHROME renders. Studio/portal environment in 3D                |
+| Name       | Value           | Use                                                    |
+| ---------- | --------------- | ------------------------------------------------------ |
+| Mist       | `#FF2BD6`       | Backlit mist behind garments, floor mist               |
+| Spark      | `#FF8BE8`       | Movement sparkles, shooting stars                      |
+| Reflection | `#FF2BD6`       | Light strip the chrome mirrors                         |
+| Violet     | `#7A2BFF`       | Ring light the chrome mirrors (second reflection tone) |
+| Chrome     | silver gradient | Drop title (`.chrome-text`), droplets (mirror metal)   |
 
 ### Principles
 
-- **Neutral, not tinted.** Grays have no blue/warm cast — the brand is literally monochrome. The near-black floor's faint blue (`#06060A`) is the only exception, and it comes from the hologram post.
-- **Light is the accent.** Brighter = more important: `muted-foreground` → `foreground` → `primary` fill. `signal` marks things that are "lit" (focus, a live indicator), not things that are "important".
-- **`signal` stays rare.** If more than one or two things on screen glow blue, it's overused.
+- **Neutral underneath, pink on top.** Grays have no tint; pink is the only hue in the UI.
+- **Pink means lit or primary.** It marks light (glow, mist, laser), focus, and the one primary action per screen. Text blocks, borders and secondary controls stay neutral.
+- **Pink never touches the garments.** Their light is neutral so the product reads true.
 - **Pure `#000` and `#FFF` are reserved for the logo.**
-- **Contrast:** `foreground` and `muted-foreground` on `background`/`card` must meet WCAG AA for their size. `muted-foreground` is for secondary copy only.
+- **Contrast:** `foreground` and `muted-foreground` on `background`/`card` must meet WCAG AA for their size; text on the pink CTA is the near-black floor.
 - **Status colors** beyond `destructive` are not defined — prefer a neutral message in `foreground` before inventing a green.
 
 ## Dark mode
@@ -184,7 +185,7 @@ All values live in `app/globals.css`: primitives and the semantic tokens that al
 
 **Jost** is the only typeface — a geometric sans in the Futura tradition, matching the `NOTA.` wordmark. Loaded with `next/font/google` as a variable font (weights 300–600 in use), exposed as `--font-sans`. Fallback: `ui-sans-serif, system-ui, sans-serif`.
 
-The MONOCHROME post sets its title in a wide, rounded-square sci-fi display face. The site does **not** adopt it: collection titles use `{typography.display}` (Jost, uppercase, open tracking) framed by `✦` stars, which keeps the same feeling with one family. Revisit only if the brand provides that face as an official asset.
+Collection titles use `{typography.display}` (Jost, uppercase, open tracking) set in **chrome** (`.chrome-text`: a vertical silver gradient with a dark horizon band and a pink tail) and framed by white `✦` stars.
 
 ### Hierarchy
 
@@ -238,7 +239,7 @@ Depth comes from the scene itself (perspective, the portal's falloff, light), no
 | 3     | `{colors.secondary}` + 1px `{colors.border}` + `ring-1 ring-white/5` | Popovers, tooltips, dialogs                                             |
 
 - **No `shadow-*` utilities.**
-- **Glow is the only "shadow"**, in `signal`, and only for focus or the currently active/lit object.
+- **Glow is the only "shadow"**, in pink `signal`, and only for focus or light.
 - **Film grain:** a very subtle static noise overlay over the whole page is allowed (the renders have it); it must not animate or reduce text contrast.
 
 ## Shapes & ornaments
@@ -251,7 +252,7 @@ Depth comes from the scene itself (perspective, the portal's falloff, light), no
 | `{rounded.md}`   | 6px    | Checkbox, small form details                          |
 
 - **Thin rules:** 1px `{colors.border}` (or `foreground/40` when it must read) horizontal lines, short (`w-24`) and centered between title / object / description; full-width for section dividers. A thin frame line around a full-screen product moment is allowed.
-- **`✦` (four-point star):** flanks collection titles (`✦ MONOCHROME ✦`) and can mark list items. Always `{colors.foreground}`, the size of the cap height. Never more than one pair per screen.
+- **`✦` (four-point star):** flanks collection titles (`✦ MONOCHROME ✦`) and can mark list items. Always `{colors.foreground}` (white), including beside the chrome title; the size of the cap height. Never more than one pair per screen.
 
 ## Motion
 
@@ -272,22 +273,22 @@ GSAP drives all animation (see `FOUNDATIONS.md` → **Wrapping third-party depen
 - **Weightless, not springy.** Long ease-outs and gentle drift. No `bounce`, `elastic` or `back` eases.
 - **Animate `transform` and `opacity` only** (and three.js object/camera/material properties). Never animate layout properties.
 - **Typical entrance:** `opacity 0 → 1`, `y 24 → 0` (or `blur(8px) → 0`), `{motion.duration-base}`, `{motion.ease-default}`.
-- **Glitch is the signature transition** — a short (≤ 0.4s) RGB-split / slice displacement, used for reveals and color-variant changes (as in the brand's color-reveal post). At most one glitch per interaction; never on text the user is reading.
 - **Scroll is a camera, and it's controlled.** Every gesture (wheel, swipe, arrow/page keys) moves exactly one section, starting immediately, in a 0.5s `power2.inOut` scroll; momentum and repeat events from the same gesture are ignored, so nothing moves after the user stops and nothing corrects itself afterwards. The camera is tied to that scroll, so a garment and its information arrive together, and only one garment is ever on screen.
 - **Product sections:** one column on phones (garment above, info below); from 768px two columns that alternate per piece (garment left / info right, then the reverse). Usage instructions live in one fixed line at the bottom, never inside product content.
-- **`prefers-reduced-motion` is mandatory:** wrap timelines in `gsap.matchMedia()`; under reduced motion use plain fades, no glitch, no scroll-scrubbed camera moves, no ambient drift or auto-rotate.
+- **`prefers-reduced-motion` is mandatory:** wrap timelines in `gsap.matchMedia()`; under reduced motion use plain fades, no scroll-scrubbed camera moves, no ambient drift or auto-rotate; the chrome droplets and mist hold still.
 
 ## 3D
 
 Every product is shown as an interactive three.js object. The canvas is part of the page's space, not a box embedded in it.
 
 - **One space:** the canvas is transparent or clears to `{colors.background}` — never a visible canvas edge or a different-colored stage.
-- **Portal staging:** garments float (no mannequin, no floor contact) inside a soft-lit void — a subtle receding frame/tunnel with vignette, as in the MONOCHROME renders. Portal grays come from the scene-only table above.
-- **Light:** a neutral key from the front and a neutral (white) back light that rims the garment so black fabric separates from the void. **No `signal`-blue light on garments** (brand decision): `signal` stays for focus and UI light. Reflective details should catch the light as the object turns.
-- **Halo:** backlit mist behind each garment, like the decontamination fog of an airlock: a soft radial light in a neutral, slightly cool white (`#e9eef5`, never signal blue) broken up by slowly drifting wisps. Strongest behind black fabric, softest behind white so its edge holds. It doesn't turn with the garment and fades with it; under reduced motion the mist holds still.
-- **Decontamination burst:** as the loading gate's doors finish opening, a one-off mist pours out of the seam, spreads across the screen, rises and clears in ~3 s (in the canvas, so page text stays readable). Off under reduced motion.
+- **Staging:** garments float (no mannequin, no floor contact) in the void, with pink mist behind and chrome droplets around them.
+- **Light:** a neutral key from the front and a neutral (white) back light that rims the garment so black fabric separates from the void. **No pink light on garments** (brand decision): pink is for the world around them. The environment adds a pink strip and a violet ring of light only for the chrome to mirror. Reflective details should catch the light as the object turns.
+- **Halo:** backlit mist behind each garment, like the decontamination fog of an airlock: a soft pink glow with an uneven, breathing outline, broken up by slowly drifting, curling wisps. Strongest behind black fabric, softest behind white so its edge holds. It doesn't turn with the garment; it fades over a much wider window than the garment, so during a transition the outgoing and incoming mists overlap and the scene is never without mist; under reduced motion the mist holds still.
+- **Floor mist:** as the loading gate's doors finish opening, a low mist rolls out of the seam along the floor and then stays for the rest of the visit, settling to a softer resting level and drifting slowly (in the canvas, so page text stays readable). Off under reduced motion.
 - **Interaction:** horizontal drag/touch turns the garment with damping (no panning, no zoom). When nobody touches it, it sways gently around its rest view and resumes after a pause. A short caption ("Arrastrá la prenda para girarla.") sits with the product copy.
-- **Atmosphere:** two layers of sparse stars at different depths, plus two quiet events, both neutral white and off under reduced motion:
+- **Liquid metal droplets:** four chrome droplets per garment (mirror metal, clearcoat) whose surface ripples like mercury (simplex-noise displacement with rebuilt normals, so reflections follow the wobble). They float, sit back from the garment and clear of the text column, and swell in and out with it.
+- **Atmosphere:** two layers of sparse stars at different depths, plus two quiet events, both pink and off under reduced motion:
   - **Movement sparkles:** small ✦ that twinkle in and out while the camera travels between sections, in proportion to the distance moved (none at rest).
   - **Shooting stars:** every 6–12 s, at random, 1–3 thin streaks cross the far background in one shared direction (never more than 3).
   - Nothing may compete with the garment.
@@ -295,9 +296,9 @@ Every product is shown as an interactive three.js object. The canvas is part of 
   - Every garment turns a full 360° at one constant pace, and drag turns it freely with inertia.
   - **Hoodie:** its first full turn shows the lights-off model; then a scan line sweeps up and swaps in the lights-on model, whose reflective lines then strike on like a tube light (a short flicker, then steady): only the texture's pure-white texels (the lines, brighter than the off-white fabric) emit, so they read as light against the shaded fabric. No bloom post-processing (it blanked the canvas intermittently).
   - **Tee:** changing colour (Blanca / Negra) uses the same upward scan swap.
-- **Loading:** a full-screen hatch, closed, while the garments load. A laser (signal-blue light, white-hot head, sparks) welds its vertical seam top to bottom, following real asset progress with a minimum duration; the status reads "Reparando la compuerta." with a percentage. When the weld completes it flares once, the doors part and the drop is revealed; the finished weld rides away on the left door. Input is held until the doors open. Without WebGL, or after 15 s, it opens anyway; under reduced motion it simply fades. Never a spinner on an empty void.
+- **Loading:** a full-screen hatch, closed, while the garments load. A laser (pink `signal` light, white-hot head, sparks) welds its vertical seam top to bottom, following real asset progress with a minimum duration; the status reads "Reparando la compuerta." with a percentage. When the weld completes it flares once, the doors part and the drop is revealed; the finished weld rides away on the left door. Input is held until the doors open. Without WebGL, or after 15 s, it opens anyway; under reduced motion it simply fades. Never a spinner on an empty void.
 - **Performance budget:** cap device pixel ratio at 1.5 (an adaptive monitor drops it to 1 when the frame rate falls), render only while the canvas is on screen, pause when the tab is hidden, dispose geometries/materials/textures on unmount.
-- **Fallback:** without WebGL, show the poster image — purchasing must never depend on 3D working.
+- **Fallback:** without WebGL, the canvas shows a short notice and the page works as normal — purchasing must never depend on 3D working.
 - **Accessibility:** the canvas has a text alternative (product name + short description); every purchase action (size, color, add to cart) lives in regular DOM controls, never only inside the scene.
 
 ## Components
@@ -313,7 +314,7 @@ Observed on the brand's Instagram profile. No vector source yet:
 
 ### Buttons
 
-**`button-primary`** — fill `{colors.primary}`, label `{colors.primary-foreground}`, `{rounded.full}`, label in `{typography.eyebrow}`. Hover: slight brightness change. Focus: `signal` ring/glow.
+**`button-primary`** — electric pink fill `{colors.primary}`, near-black label `{colors.primary-foreground}`, `{rounded.full}`, label in `{typography.eyebrow}`. Hover: slight brightness change. Focus: pink ring/glow.
 
 **`button-ghost`** — transparent, 1px `{colors.border}`, `{colors.foreground}` label, `{rounded.full}`. Hover: border to `foreground/40` and `bg-accent/40`.
 
@@ -344,19 +345,20 @@ Dialogs, drawers (cart) and popovers use elevation level 2–3 and enter with `{
 
 ### Do
 
-- Let the garment and the empty space do the work.
-- Keep the UI monochrome; let `signal` blue appear only as light.
+- Let the garment and the space around it do the work.
+- Spend chrome and pink where they mean something: the drop title, the primary action, the light around a garment.
 - Use Jost only: light weights large, wide uppercase small.
-- Structure with thin rules and the `✦` star; center product moments.
-- Keep the canvas and the page one continuous space; stage garments in a portal.
-- Use GSAP, keep it weightless, glitch sparingly, honor `prefers-reduced-motion`.
+- Structure with thin rules and the `✦` star.
+- Keep the canvas and the page one continuous space.
+- Use GSAP, keep it weightless, honor `prefers-reduced-motion`.
 - Write short, with periods; sign off with "not available."
 
 ### Don't
 
 - Don't add a light theme, a theme toggle or `dark:` variants.
-- Don't use pure black/white outside the logo, tinted grays, or `signal`/violet as a UI fill.
-- Don't use drop shadows, bold (700+) weights, decorative gradients or a second typeface.
-- Don't use bounce/elastic/back eases, animate layout properties, or glitch text being read.
+- Don't put pink light on the garments, or use pink for text blocks, borders or secondary controls.
+- Don't use pure black/white outside the logo, or tinted grays.
+- Don't use drop shadows, bold (700+) weights or a second typeface.
+- Don't use bounce/elastic/back eases or animate layout properties.
 - Don't show a spinner on an empty canvas, or make purchasing depend on WebGL.
 - Don't hard-code hex colours or primitives in components.

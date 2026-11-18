@@ -26,7 +26,7 @@ function DropHero({
 
       <div className="absolute inset-x-0 bottom-0 px-6 pb-12 md:pb-14">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-          <h1 className="flex items-center gap-[0.35em] text-[clamp(2.25rem,8.5vw,5.5rem)] font-light uppercase leading-[0.95] tracking-[0.04em]">
+          <h1 className="chrome-text flex items-center gap-[0.35em] text-[clamp(2.25rem,8.5vw,5.5rem)] font-light uppercase leading-[0.95] tracking-[0.04em]">
             <StarMark />
             {drop.name}
             <StarMark />

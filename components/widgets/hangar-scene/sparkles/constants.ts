@@ -26,6 +26,7 @@ export const SPARKLE_VERTEX = /* glsl */ `
 
 // A four-point star (the brand's ✦): a soft core plus two thin rays.
 export const SPARKLE_FRAGMENT = /* glsl */ `
+  uniform vec3 uColor;
   varying float vAlpha;
   void main() {
     vec2 p = gl_PointCoord * 2.0 - 1.0;
@@ -33,6 +34,6 @@ export const SPARKLE_FRAGMENT = /* glsl */ `
     float rays = max(0.0, 1.0 - abs(p.x) * 14.0) * max(0.0, 1.0 - abs(p.y))
                + max(0.0, 1.0 - abs(p.y) * 14.0) * max(0.0, 1.0 - abs(p.x));
     float star = clamp(core + rays * 0.9, 0.0, 1.0);
-    gl_FragColor = vec4(vec3(0.95), star * vAlpha);
+    gl_FragColor = vec4(uColor, star * vAlpha);
   }
 `;

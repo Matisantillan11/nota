@@ -6,6 +6,7 @@ import {
   AdditiveBlending,
   BufferAttribute,
   BufferGeometry,
+  Color,
   type ShaderMaterial,
   Vector3,
 } from "three";
@@ -25,7 +26,7 @@ const random = (min: number, max: number) => min + Math.random() * (max - min);
 
 // Star sparkles that appear only while the camera travels between sections,
 // in proportion to how far it moved, then twinkle out.
-function Sparkles({ reducedMotion }: SparklesProps) {
+function Sparkles({ reducedMotion, color }: SparklesProps) {
   const material = useRef<ShaderMaterial>(null);
   const last = useRef<Vector3 | null>(null);
   const carry = useRef(0);
@@ -121,7 +122,7 @@ function Sparkles({ reducedMotion }: SparklesProps) {
         ref={material}
         vertexShader={SPARKLE_VERTEX}
         fragmentShader={SPARKLE_FRAGMENT}
-        uniforms={{ uTime: { value: 0 } }}
+        uniforms={{ uTime: { value: 0 }, uColor: { value: new Color(color) } }}
         transparent
         depthWrite={false}
         blending={AdditiveBlending}

@@ -4,6 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import {
   AdditiveBlending,
+  Color,
   type Group,
   type Mesh,
   type ShaderMaterial,
@@ -35,7 +36,7 @@ interface Streak {
 
 // A few shooting stars crossing the far background at random intervals.
 // The group rides with the camera so they always cross what the visitor sees.
-function ShootingStars({ reducedMotion }: ShootingStarsProps) {
+function ShootingStars({ reducedMotion, color }: ShootingStarsProps) {
   const group = useRef<Group>(null);
   const meshes = useRef<(Mesh | null)[]>([]);
   const streaks = useRef<(Streak | null)[]>(Array(MAX_STREAKS).fill(null));
@@ -113,7 +114,10 @@ function ShootingStars({ reducedMotion }: ShootingStarsProps) {
           <shaderMaterial
             vertexShader={STREAK_VERTEX}
             fragmentShader={STREAK_FRAGMENT}
-            uniforms={{ uFade: { value: 0 } }}
+            uniforms={{
+              uFade: { value: 0 },
+              uColor: { value: new Color(color) },
+            }}
             transparent
             depthWrite={false}
             blending={AdditiveBlending}

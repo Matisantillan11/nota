@@ -1,12 +1,13 @@
 # NOTA.
 
-NOTA. ("Espacio Creativo.") is a monochrome, space-inspired apparel studio that releases limited drops. This is its immersive store: the visitor enters through a hatch welded shut by a laser, and each garment of the live drop floats in deep space as a 3D model they can turn and buy. Dark-only, minimal, premium.
+NOTA. ("Espacio Creativo.") is a space-inspired apparel studio that releases limited drops. This is its immersive store: the visitor enters through a hatch welded shut by a laser, and each garment of the live drop floats in deep space as a 3D model they can turn and buy. Dark-only and electric: chrome, liquid metal and electric pink over deep space.
 
 ## The experience
 
 - **Loading gate:** a laser welds the hatch while the 3D models load; the doors open on the drop with a low burst of decontamination mist.
 - **One section per gesture:** wheel, swipe or arrow keys move exactly one section; the camera flies to the next garment and only one is on screen at a time.
 - **Garments:** the brand's glTF models, turning 360° (drag to turn). The hoodie makes one turn with its lights off, then its reflective lines switch on; the tee's colour (Blanca / Negra) swaps with the same scan line.
+- **Liquid metal:** mercury-like chrome droplets around each garment, chrome display type and an electric pink accent.
 - **Atmosphere:** layered starfield, backlit mist behind each garment, movement sparkles and occasional shooting stars. Everything respects `prefers-reduced-motion`.
 
 Prices, sizes and checkout are placeholders until the commerce backend exists (see `PRODUCT.md`).
@@ -38,7 +39,7 @@ Model paths and per-garment settings (lit state, mist strength) are in `componen
 ## Docs
 
 - [`PRODUCT.md`](./PRODUCT.md) — product truth: users, drops, markets, constraints.
-- [`DESIGN.md`](./DESIGN.md) — visual system: colors, Jost typography, motion, 3D and atmosphere rules.
+- [`DESIGN.md`](./DESIGN.md) — visual system: liquid metal world, colors, Jost typography, motion, 3D and atmosphere rules.
 - [`FOUNDATIONS.md`](./FOUNDATIONS.md) — code conventions and folder structure.
 - [`CONTRIBUTION.md`](./CONTRIBUTION.md) — git workflow and PR process.
 

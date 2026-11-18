@@ -187,7 +187,7 @@ function LoadingGate({ reducedMotion, onOpen }: LoadingGateProps) {
                 className="absolute right-0 top-0 h-0 w-[2px] translate-x-1/2 opacity-80"
                 style={{
                   background:
-                    "linear-gradient(to top, #ffffff 0, var(--color-signal) 10px, rgb(30 144 255 / 0.45) 70px, rgb(242 242 242 / 0.3) 180px)",
+                    "linear-gradient(to top, #ffffff 0, var(--color-signal) 10px, color-mix(in srgb, var(--color-signal) 45%, transparent) 70px, rgb(242 242 242 / 0.3) 180px)",
                 }}
               />
             </>
@@ -206,7 +206,7 @@ function LoadingGate({ reducedMotion, onOpen }: LoadingGateProps) {
           className="absolute left-0 top-0 h-px origin-left"
           style={{
             background:
-              "linear-gradient(to right, rgb(30 144 255 / 0) 0%, rgb(30 144 255 / 0.55) 70%, #ffffff 100%)",
+              "linear-gradient(to right, color-mix(in srgb, var(--color-signal) 0%, transparent) 0%, color-mix(in srgb, var(--color-signal) 55%, transparent) 70%, #ffffff 100%)",
           }}
         />
         <div
@@ -214,7 +214,7 @@ function LoadingGate({ reducedMotion, onOpen }: LoadingGateProps) {
           className="absolute left-1/2 top-0 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white"
           style={{
             boxShadow:
-              "0 0 6px 2px #ffffff, 0 0 18px 6px var(--color-signal), 0 0 42px 14px rgb(30 144 255 / 0.35)",
+              "0 0 6px 2px #ffffff, 0 0 18px 6px var(--color-signal), 0 0 42px 14px color-mix(in srgb, var(--color-signal) 35%, transparent)",
           }}
         />
         {Array.from({ length: SPARK_POOL }, (_, i) => (

@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 /*
- * NOTA. is dark-only and monochrome (see DESIGN.md → Colors), so there is a
- * single palette and no `.dark` block.
+ * NOTA. is dark-only and "liquid metal" (see DESIGN.md → Colors): near-black
+ * surfaces, a near-white foreground, chrome display type and one electric
+ * pink accent. A single palette, no `.dark` block.
  *
  * Primitives are a neutral (untinted) gray ramp plus two hues: `signal`, the
- * brand's hologram blue, which is used only as light (focus, glow, 3D), and
- * the destructive red. Values marked "sampled" come from the brand's
- * Instagram posts.
+ * electric pink that carries light, focus and the primary action, and the
+ * destructive red.
  *
  * Components are styled against the shadcn-style semantic layer below
  * (background, foreground, card, primary, ...), never against a primitive,
@@ -20,17 +20,16 @@
 
   /* Neutral (no tint) */
   --color-neutral-50: #f2f2f2;
-  --color-neutral-300: #b4b4b4; /* sampled: MONOCHROME portal, light end */
-  --color-neutral-400: #8a8a8a; /* sampled: MONOCHROME renders mid-gray */
-  --color-neutral-500: #727272; /* sampled: MONOCHROME portal, dark end */
+  --color-neutral-300: #b4b4b4;
+  --color-neutral-400: #8a8a8a;
+  --color-neutral-500: #727272;
   --color-neutral-800: #1f1f23;
   --color-neutral-850: #16161a;
   --color-neutral-900: #0e0e11;
-  --color-neutral-950: #06060a; /* sampled: hologram post floor */
+  --color-neutral-950: #06060a;
 
-  /* Signal — hologram blue (sampled halo #1370bd, brightened to its core) */
-  --color-signal-500: #1e90ff;
-  --color-signal-700: #1370bd;
+  /* Signal — electric pink */
+  --color-signal-500: #ff2bd6;
 
   /* Error */
   --color-error-500: #e5484d;
@@ -40,7 +39,7 @@
   --color-foreground: var(--color-neutral-50);
   --color-card: var(--color-neutral-900);
   --color-card-foreground: var(--color-neutral-50);
-  --color-primary: var(--color-neutral-50);
+  --color-primary: var(--color-signal-500);
   --color-primary-foreground: var(--color-neutral-950);
   --color-secondary: var(--color-neutral-850);
   --color-secondary-foreground: var(--color-neutral-50);
@@ -88,4 +87,26 @@ html {
   caret-color: var(--color-signal);
   scrollbar-color: var(--color-accent) var(--color-background);
   scrollbar-width: thin;
+}
+
+/* Chrome display type: a polished silver band with a dark horizon and a
+   pink tail. */
+.chrome-text {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #eef1f6 28%,
+    #9aa1ae 44%,
+    #22252c 50%,
+    #b9bfca 56%,
+    #ffffff 72%,
+    #ffb3ef 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.chrome-text svg {
+  fill: var(--color-foreground);
 }

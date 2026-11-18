@@ -11,11 +11,17 @@ import {
   type MeshBasicMaterial,
 } from "three";
 
-import { GARMENT_HEIGHT, GARMENT_MODELS, SWAP_SECONDS } from "../constants";
+import {
+  GARMENT_HEIGHT,
+  GARMENT_MODELS,
+  SWAP_SECONDS,
+  LIGHT_COLORS,
+} from "../constants";
 import { useFirstTurn } from "../hooks/use-first-turn";
 import { useStopVisibility } from "../hooks/use-stop-visibility";
 import { useTurn } from "../hooks/use-turn";
 import Halo from "./halo";
+import LiquidBlobs from "./liquid-blobs";
 import ModelMesh from "./model-mesh";
 import type { GarmentProps } from "./types";
 
@@ -63,9 +69,12 @@ function Garment({
   const cut = useRef(SCAN_FROM);
   const scan = useRef({ id: 0, progress: 1 });
 
-  const visibility = useStopVisibility(stops, totalStops, progressRef, () => [
-    ...materials.current,
-  ]);
+  const { visibility, mist } = useStopVisibility(
+    stops,
+    totalStops,
+    progressRef,
+    () => [...materials.current],
+  );
   const angle = useTurn({ turnsRef, index, visibility, reducedMotion });
   useFirstTurn({
     turnsRef,
@@ -105,9 +114,11 @@ function Garment({
     <group position={position}>
       <Halo
         strength={garment.halo}
-        visibility={visibility}
+        visibility={mist}
+        color={LIGHT_COLORS.mist}
         still={reducedMotion}
       />
+      <LiquidBlobs visibility={visibility} still={reducedMotion} />
       <group ref={spin}>
         <ModelMesh
           key={layers.current}
