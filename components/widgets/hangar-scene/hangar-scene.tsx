@@ -91,14 +91,14 @@ function HangarScene({
 
         <Lightformer
           form="rect"
-          intensity={4}
+          intensity={7}
           color={LIGHT_COLORS.reflection}
           position={[-6, 1, -2]}
           scale={[1.5, 10, 1]}
         />
         <Lightformer
           form="ring"
-          intensity={3}
+          intensity={5}
           color={LIGHT_COLORS.violet}
           position={[4, -3, 3]}
           scale={3}

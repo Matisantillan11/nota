@@ -35,7 +35,9 @@ const FRAGMENT = /* glsl */ `
     // lifting slightly as it clears.
     float lift = uProgress * 0.12;
     float height = 1.0 - smoothstep(0.0, 0.34 + lift, vUv.y);
-    vec2 q = vec2(p.x * 1.2 + uTime * 0.05 * sign(p.x), vUv.y * 3.0 - uTime * 0.12);
+    // One continuous drift across the whole floor (a per-side direction left
+    // a visible seam down the middle).
+    vec2 q = vec2(p.x * 1.2 + uTime * 0.05, vUv.y * 3.0 - uTime * 0.12);
     float wisps = fbm(q * 2.2 + fbm(q * 1.3) * 1.2);
     float density = height * sides * (0.45 + 0.75 * smoothstep(0.3, 0.9, wisps));
     // Rolls in, then settles to a resting floor mist that stays.

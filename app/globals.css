@@ -150,23 +150,26 @@ html {
 .button-mist {
   position: relative;
   isolation: isolate;
+  /* The drift must not spill sideways into the panel's scroll area. */
+  overflow-x: clip;
 }
 
 .button-mist::before,
 .button-mist::after {
   content: "";
   position: absolute;
-  inset: -14px -10px;
+  /* Grows above and below only: the panel's scroll area clips the sides. */
+  inset: -18px 0;
   z-index: -1;
   border-radius: 9999px;
   pointer-events: none;
-  filter: blur(14px);
+  filter: blur(16px);
 }
 
 .button-mist::before {
   background: radial-gradient(
     60% 90% at 30% 50%,
-    rgb(255 43 214 / 0.55),
+    rgb(255 43 214 / 0.85),
     transparent 70%
   );
   animation: mist-drift 7s ease-in-out infinite;
@@ -175,7 +178,7 @@ html {
 .button-mist::after {
   background: radial-gradient(
     55% 80% at 70% 50%,
-    rgb(255 139 232 / 0.4),
+    rgb(255 139 232 / 0.6),
     transparent 70%
   );
   animation: mist-drift 9s ease-in-out infinite reverse;

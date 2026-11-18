@@ -79,7 +79,7 @@ function SiteHeader() {
               ))}
             </ul>
           )}
-          <div className="mt-auto flex flex-col gap-3 pt-6">
+          <div className="mt-auto flex flex-col gap-3 pb-2 pt-6">
             <div className="flex items-baseline justify-between py-2 text-sm">
               <span className="text-muted-foreground">Total</span>
               <span>A confirmar.</span>
