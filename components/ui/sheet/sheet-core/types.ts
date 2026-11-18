@@ -5,7 +5,13 @@ export type SheetCoreProps = ComponentPropsWithRef<typeof DialogPrimitive.Root>;
 
 export type SheetCoreContentProps = ComponentPropsWithRef<
   typeof DialogPrimitive.Content
-> & { open?: boolean };
+> & {
+  open?: boolean;
+  /** Edge the sheet enters from. Defaults to "right". */
+  side?: "left" | "right";
+  /** Detached from the edge: inset, rounded, and the page stays visible. */
+  floating?: boolean;
+};
 
 export type SheetCoreTitleProps = ComponentPropsWithRef<
   typeof DialogPrimitive.Title

@@ -328,6 +328,8 @@ Observed on the brand's Instagram profile. No vector source yet:
 
 Dialogs, drawers (cart) and popovers use elevation level 2–3 and enter with `{motion.duration-base}` + `{motion.ease-default}`.
 
+**Cart — floating liquid glass.** The cart is a `Sheet` with `side="right"` and `floating`: a panel inset 16px from the edges with `rounded-3xl`, sliding in from the right and drifting gently while open (`.float-drift`, off under reduced motion). Its material is `.liquid-glass` (`app/globals.css`), deliberately discreet: a heavy blur (`backdrop-blur-[48px]` on the element; a raw `backdrop-filter` in the stylesheet is dropped by the CSS build) over a faint neutral tint, a hairline edge and one soft drop shadow (the only shadow in the system: the pane floats). No highlights, sheen, colour tint or saturation boost. The overlay behind a floating sheet is a light dim, so the scene stays visible through the glass.
+
 ### Inputs & Forms
 
 - `rounded-full border border-input bg-transparent text-foreground`, no filled background. Sizes match `Button`'s so they line up in a row.

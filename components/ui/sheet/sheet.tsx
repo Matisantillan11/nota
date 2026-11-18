@@ -13,6 +13,8 @@ function Sheet({
   children,
   className,
   contentId,
+  side,
+  floating,
   "data-testid": dataTestId,
 }: SheetProps) {
   return (
@@ -22,6 +24,8 @@ function Sheet({
         className={className}
         data-testid={dataTestId}
         open={open}
+        side={side}
+        floating={floating}
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex min-w-0 items-center gap-2">

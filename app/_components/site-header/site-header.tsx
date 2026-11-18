@@ -38,53 +38,61 @@ function SiteHeader() {
         open={open}
         onOpenChange={setOpen}
         title="Carrito."
+        side="right"
+        floating
+        className="liquid-glass float-drift backdrop-blur-[48px]"
         description={
           items.length
             ? `${items.length} ${items.length === 1 ? "pieza" : "piezas"}.`
             : undefined
         }
       >
-        {items.length === 0 ? (
-          <p className="pt-10 text-center text-muted-foreground">
-            Todavía no agregaste nada.
-          </p>
-        ) : (
-          <ul className="flex flex-col">
-            {items.map((item, i) => (
-              <li
-                key={`${item.pieceId}-${i}`}
-                className="flex items-center justify-between gap-4 border-b border-border py-4"
-              >
-                <div>
-                  <p className="font-normal">{item.name}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {[item.variant, `Talle ${item.size}`]
-                      .filter(Boolean)
-                      .join(" · ")}
-                  </p>
-                </div>
-                <Button
-                  variant="link"
-                  onClick={() => remove(i)}
-                  aria-label={`Quitar ${item.name} talle ${item.size}`}
+        {/* Fills the panel so the checkout block always sits at the bottom. */}
+        <div className="flex min-h-full flex-col">
+          {items.length === 0 ? (
+            <p className="pt-10 text-center text-muted-foreground">
+              Todavía no agregaste nada.
+            </p>
+          ) : (
+            <ul className="flex flex-col">
+              {items.map((item, i) => (
+                <li
+                  key={`${item.pieceId}-${i}`}
+                  className="flex items-center justify-between gap-4 border-b border-border py-4"
                 >
-                  Quitar
-                </Button>
-              </li>
-            ))}
-          </ul>
-        )}
-        <div className="flex items-baseline justify-between py-4 text-sm">
-          <span className="text-muted-foreground">Total</span>
-          <span>A confirmar.</span>
-        </div>
-        <div className="mt-4 flex flex-col gap-3">
-          <Button size="lg" disabled className="w-full">
-            Finalizar compra
-          </Button>
-          <p className="text-center text-sm text-muted-foreground">
-            El pago se habilita pronto.
-          </p>
+                  <div>
+                    <p className="font-normal">{item.name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {[item.variant, `Talle ${item.size}`]
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </p>
+                  </div>
+                  <Button
+                    variant="link"
+                    onClick={() => remove(i)}
+                    aria-label={`Quitar ${item.name} talle ${item.size}`}
+                  >
+                    Quitar
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          )}
+          <div className="mt-auto flex flex-col gap-3 pt-6">
+            <div className="flex items-baseline justify-between py-2 text-sm">
+              <span className="text-muted-foreground">Total</span>
+              <span>A confirmar.</span>
+            </div>
+            <div className="button-mist">
+              <Button size="lg" disabled className="w-full">
+                Finalizar compra
+              </Button>
+            </div>
+            <p className="text-center text-sm text-muted-foreground">
+              El pago se habilita pronto.
+            </p>
+          </div>
         </div>
       </Sheet>
     </header>

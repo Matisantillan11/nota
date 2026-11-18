@@ -32,6 +32,8 @@ function SheetCoreContent({
   className,
   children,
   open,
+  side = "right",
+  floating = false,
   ...props
 }: SheetCoreContentProps) {
   // Radix's Root always renders this component — only Overlay/Content's own
@@ -75,7 +77,9 @@ function SheetCoreContent({
         forceMount
         data-slot="sheet-overlay"
         className={cn(
-          "fixed inset-0 z-50 bg-background/70 backdrop-blur-sm transition-opacity duration-300 ease-out",
+          "fixed inset-0 z-50 transition-opacity duration-300 ease-out",
+          // A floating sheet keeps the page visible behind it.
+          floating ? "bg-background/30" : "bg-background/70 backdrop-blur-sm",
           isVisible ? "opacity-100" : "opacity-0",
         )}
       />
@@ -83,8 +87,26 @@ function SheetCoreContent({
         forceMount
         data-slot="sheet-content"
         className={cn(
-          "fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-md flex-col gap-4 border-l border-border bg-card/60 p-6 backdrop-blur-xl outline-none transition-[transform,max-width] duration-300 ease-out",
-          isVisible ? "translate-x-0" : "translate-x-full",
+          "fixed z-50 flex w-full max-w-md flex-col gap-4 p-6 outline-none duration-300 ease-out",
+          floating
+            ? cn(
+                "inset-y-4 w-[calc(100%-2rem)] rounded-3xl transition-[transform,opacity]",
+                side === "left" ? "left-4" : "right-4",
+                isVisible
+                  ? "translate-x-0 opacity-100"
+                  : side === "left"
+                    ? "-translate-x-[calc(100%+2rem)] opacity-0"
+                    : "translate-x-[calc(100%+2rem)] opacity-0",
+              )
+            : cn(
+                "inset-y-0 h-full border-border bg-card/60 backdrop-blur-xl transition-[transform,max-width]",
+                side === "left" ? "left-0 border-r" : "right-0 border-l",
+                isVisible
+                  ? "translate-x-0"
+                  : side === "left"
+                    ? "-translate-x-full"
+                    : "translate-x-full",
+              ),
           className,
         )}
         {...props}

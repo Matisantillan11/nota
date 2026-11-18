@@ -10,5 +10,9 @@ export interface SheetProps {
   children: ReactNode;
   className?: string;
   contentId?: string;
+  /** Edge the sheet enters from. Defaults to "right". */
+  side?: "left" | "right";
+  /** Detached from the edge: inset, rounded, and the page stays visible. */
+  floating?: boolean;
   "data-testid"?: string;
 }

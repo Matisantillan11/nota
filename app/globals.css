@@ -110,3 +110,92 @@ html {
 .chrome-text svg {
   fill: var(--color-foreground);
 }
+
+/* Liquid glass, discreet: a heavy blur over a faint neutral tint, a hairline
+   edge and one soft shadow. No highlights, sheen or colour of its own; the
+   blur itself is applied with Tailwind's backdrop-* utilities where the class
+   is used (a raw backdrop-filter here is dropped by the CSS build). */
+.liquid-glass {
+  background: rgb(14 14 17 / 0.55);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  box-shadow: 0 30px 80px -30px rgb(0 0 0 / 0.7);
+}
+
+/* Gentle zero-g drift while a floating glass panel is open. */
+@keyframes float-drift {
+  /* transform, not translate: Tailwind's translate-x (the slide in) owns
+     the translate property. */
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-0.35deg);
+  }
+}
+
+.float-drift {
+  animation: float-drift 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-drift {
+    animation: none;
+  }
+}
+
+/* Mist around a single action, like the backlit mist behind the garments but
+   shaped to a capsule: two soft pink glows drifting past each other behind
+   the button. Wrap the button in it. */
+.button-mist {
+  position: relative;
+  isolation: isolate;
+}
+
+.button-mist::before,
+.button-mist::after {
+  content: "";
+  position: absolute;
+  inset: -14px -10px;
+  z-index: -1;
+  border-radius: 9999px;
+  pointer-events: none;
+  filter: blur(14px);
+}
+
+.button-mist::before {
+  background: radial-gradient(
+    60% 90% at 30% 50%,
+    rgb(255 43 214 / 0.55),
+    transparent 70%
+  );
+  animation: mist-drift 7s ease-in-out infinite;
+}
+
+.button-mist::after {
+  background: radial-gradient(
+    55% 80% at 70% 50%,
+    rgb(255 139 232 / 0.4),
+    transparent 70%
+  );
+  animation: mist-drift 9s ease-in-out infinite reverse;
+}
+
+@keyframes mist-drift {
+  0%,
+  100% {
+    transform: translateX(-6%) scale(1, 0.9);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translateX(6%) scale(1.08, 1.1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button-mist::before,
+  .button-mist::after {
+    animation: none;
+  }
+}
